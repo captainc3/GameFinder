@@ -36,13 +36,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="add-" id="acW-dT-cKf"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="750" y="-320"/>
         </scene>
-        <!--Item-->
+        <!--Third-->
         <scene sceneID="Q2F-iq-0cq">
             <objects>
                 <viewController id="dHY-fl-lxu" customClass="ThirdViewController" customModule="GameFinder" customModuleProvider="target" sceneMemberID="viewController">
@@ -59,9 +59,10 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="Ds5-4t-Z8x"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="1k3-8M-f6l"/>
+                    <tabBarItem key="tabBarItem" title="Third" image="profile-" id="1k3-8M-f6l"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YCE-Z3-rnF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -96,13 +97,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Second" image="alert-" id="cPa-gy-q4n"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="750" y="360"/>
         </scene>
-        <!--Item-->
+        <!--Fourth-->
         <scene sceneID="7C1-NC-8yL">
             <objects>
                 <viewController id="pyN-xI-wgQ" customClass="FourthViewController" customModule="GameFinder" customModuleProvider="target" sceneMemberID="viewController">
@@ -121,16 +122,16 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="FVw-az-xfs"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="7rv-bg-8ws"/>
+                    <tabBarItem key="tabBarItem" title="Fourth" image="profile-" id="7rv-bg-8ws"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bR-jh-hiw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1621" y="477"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Custom Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController id="49e-Tb-3d3" customClass="CustomTabBarController" customModule="GameFinder" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -149,7 +150,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="2000" height="1793"/>
-        <image name="second" width="880" height="1060"/>
+        <image name="add-" width="20.5" height="20.5"/>
+        <image name="alert-" width="17.5" height="19"/>
+        <image name="profile-" width="19" height="19"/>
     </resources>
+    <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
