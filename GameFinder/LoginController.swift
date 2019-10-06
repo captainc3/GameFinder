@@ -140,12 +140,13 @@ class LoginController: UIViewController,UITextFieldDelegate {
             
             guard let navController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController else { return }
             guard let controller = navController.viewControllers[0] as? FirstViewController else { return }
+            
+            controller.loadUserData()
             controller.configureViewComponents()
 
-            // forgot to add this in video
-            controller.loadUserData()
-
-            //self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
+            
+            
         }
     }
     

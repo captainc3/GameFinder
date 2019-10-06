@@ -13,6 +13,7 @@ class FirstViewController: UIViewController {
     
     // MARK: - Properties
     
+    //Sign out Button
     let dontHaveAccountButton: UIButton = {
         let button = UIButton(type: .system)
         let attributedTitle = NSMutableAttributedString(string: "Done Already? ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white])
@@ -79,15 +80,18 @@ class FirstViewController: UIViewController {
     func authenticateUserAndConfigureView() {
         if Auth.auth().currentUser == nil {
             DispatchQueue.main.async {
-                let navController = UINavigationController(rootViewController: LoginController())
-                navController.navigationBar.barStyle = .black
-                self.present(navController, animated: true, completion: nil)
+                
+                let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let viewController = mainStoryboard.instantiateViewController(withIdentifier: "navcontrol") as! UINavigationController
+                UIApplication.shared.keyWindow?.rootViewController = viewController
             }
         } else {
             configureViewComponents()
             loadUserData()
         }
     }
+    
+    
     
     // MARK: - Helper Functions
     
