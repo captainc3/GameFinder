@@ -12,6 +12,7 @@ class ThirdViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBarItem.title = "View Events"
 
         // Do any additional setup after loading the view.
     }

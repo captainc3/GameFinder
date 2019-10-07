@@ -17,6 +17,7 @@ class FourthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBarItem.title = "Home"
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self
         calendarView.scrollDirection = .vertical
@@ -25,6 +26,7 @@ class FourthViewController: UIViewController {
         // Do any additional setup after loading the view.
 
         populateDataSource()
+        
     }
     
     @objc func buttonClicked(sender: UIButton!) {
