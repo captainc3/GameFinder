@@ -134,13 +134,26 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="dateButton" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B3E-NH-XhM">
+                                                    <rect key="frame" x="32.5" y="55" width="20" height="15"/>
+                                                    <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="15" id="ZKf-Iz-BIc"/>
+                                                        <constraint firstAttribute="width" constant="20" id="faU-PL-tUk"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="6"/>
+                                                </button>
                                             </subviews>
                                         </view>
                                         <constraints>
+                                            <constraint firstItem="B3E-NH-XhM" firstAttribute="centerX" secondItem="TjT-Jj-VKq" secondAttribute="centerX" id="ASg-Ig-6NC"/>
                                             <constraint firstItem="TjT-Jj-VKq" firstAttribute="centerX" secondItem="awG-be-6B3" secondAttribute="centerX" id="Y8v-kw-rCR"/>
+                                            <constraint firstItem="B3E-NH-XhM" firstAttribute="centerX" secondItem="TjT-Jj-VKq" secondAttribute="centerX" id="seB-B4-zE8"/>
+                                            <constraint firstItem="B3E-NH-XhM" firstAttribute="top" secondItem="TjT-Jj-VKq" secondAttribute="bottom" constant="2.5" id="vCp-A3-Ric"/>
                                             <constraint firstItem="TjT-Jj-VKq" firstAttribute="centerY" secondItem="awG-be-6B3" secondAttribute="centerY" id="wAw-ns-GI4"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="dateButton" destination="B3E-NH-XhM" id="hHg-Xj-3Yp"/>
                                             <outlet property="dateLabel" destination="TjT-Jj-VKq" id="lPo-h5-yc5"/>
                                         </connections>
                                     </collectionViewCell>
