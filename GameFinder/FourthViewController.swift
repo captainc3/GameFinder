@@ -13,12 +13,13 @@ class FourthViewController: UIViewController {
     @IBOutlet var calendarView: JTACMonthView!
     var calendarDataSource: [String:String] = [:]
     var formatter = DateFormatter()
+    var selectedDate = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self
-        calendarView.scrollDirection = .horizontal
+        calendarView.scrollDirection = .vertical
         calendarView.scrollingMode   = .stopAtEachCalendarFrame
         calendarView.showsHorizontalScrollIndicator = false
         // Do any additional setup after loading the view.
@@ -26,14 +27,24 @@ class FourthViewController: UIViewController {
         populateDataSource()
     }
     
+    @objc func buttonClicked(sender: UIButton!) {
+        print(sender.currentTitle!)
+        
+    }
+    
     func configureCell(view: JTACDayCell?, cellState: CellState) {
         guard let cell = view as? DateCell  else { return }
         cell.dateLabel.text = cellState.text
         cell.layer.borderWidth = 0.2
         cell.layer.borderColor = UIColor.black.cgColor
+        handleCellSelection(view: cell, cellState: cellState)
         handleCellTextColor(cell: cell, cellState: cellState)
         handleCellEvents(cell: cell, cellState: cellState)
+        cell.dateButton.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        cell.dateButton.setTitle(cellState.date.description, for: UIControl.State.normal)
+        cell.dateButton.setTitleColor(UIColor.clear, for: UIControl.State.normal)
     }
+
     
     func handleCellTextColor(cell: DateCell, cellState: CellState) {
         if cellState.dateBelongsTo == .thisMonth {
@@ -59,20 +70,23 @@ class FourthViewController: UIViewController {
         let dateString = formatter.string(from: cellState.date)
         if calendarDataSource[dateString] != nil {
             cell.layer.backgroundColor = UIColor.lightGray.cgColor
+            cell.dateButton.isHidden = false
         } else {
             cell.layer.backgroundColor = UIColor(displayP3Red: 211.0, green: 211.0, blue: 211.0, alpha: 1.0).cgColor
+            cell.dateButton.isHidden = true
         }
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func handleCellSelection(view: DateCell, cellState: CellState) {
+            if cellState.isSelected {
+                print(cellState.date)
+                view.layer.backgroundColor = UIColor.red.cgColor
+            } else {
+                view.layer.backgroundColor = UIColor.white.cgColor
+            }
     }
-    */
 
+    var iii: Date?
 }
 
 extension FourthViewController: JTACMonthViewDataSource {
@@ -90,10 +104,22 @@ extension FourthViewController: JTACMonthViewDelegate {
     func calendar(_ calendar: JTACMonthView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTACDayCell {
         let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "dateCell", for: indexPath) as! DateCell
         self.calendar(calendar, willDisplay: cell, forItemAt: date, cellState: cellState, indexPath: indexPath)
+//        handleCellSelection(cell: cell, cellState: cellState)
         return cell
     }
     
     func calendar(_ calendar: JTACMonthView, willDisplay cell: JTACDayCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
+        guard let cell = cell as? DateCell else { return }
+        configureCell(view: cell, cellState: cellState)
+    }
+    
+    func calendar(_ calendar: JTACMonthView, didSelectDate date: Date, cell: JTACDayCell?, cellState: CellState) {
+//        handleCellSelection(view: cell, cellState: cellState)
+        configureCell(view: cell, cellState: cellState)
+    }
+    
+    func calendar(_ calendar: JTACMonthView, didDeselectDate date: Date, cell: JTACDayCell?, cellState: CellState) {
+//        handleCellSelection(view: cell, cellState: cellState)
         configureCell(view: cell, cellState: cellState)
     }
     
@@ -109,5 +135,9 @@ extension FourthViewController: JTACMonthViewDelegate {
 
     func calendarSizeForMonths(_ calendar: JTACMonthView?) -> MonthSize? {
         return MonthSize(defaultSize: 50)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        calendarView.viewWillTransition(to: size, with: coordinator, anchorDate: iii)
     }
 }
