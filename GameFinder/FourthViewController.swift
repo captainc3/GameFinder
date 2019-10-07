@@ -79,6 +79,9 @@ class FourthViewController: UIViewController {
 
     func handleCellSelection(view: DateCell, cellState: CellState) {
             if cellState.isSelected {
+                let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let viewController = mainStoryboard.instantiateViewController(withIdentifier: "econtroller") as! UINavigationController
+                UIApplication.shared.keyWindow?.rootViewController = viewController
                 print(cellState.date)
                 view.layer.backgroundColor = UIColor.red.cgColor
             } else {
