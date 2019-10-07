@@ -22,13 +22,15 @@ class FourthViewController: UIViewController {
         calendarView.scrollingMode   = .stopAtEachCalendarFrame
         calendarView.showsHorizontalScrollIndicator = false
         // Do any additional setup after loading the view.
-        
+
         populateDataSource()
     }
     
     func configureCell(view: JTACDayCell?, cellState: CellState) {
         guard let cell = view as? DateCell  else { return }
         cell.dateLabel.text = cellState.text
+        cell.layer.borderWidth = 0.2
+        cell.layer.borderColor = UIColor.black.cgColor
         handleCellTextColor(cell: cell, cellState: cellState)
         handleCellEvents(cell: cell, cellState: cellState)
     }
@@ -45,10 +47,9 @@ class FourthViewController: UIViewController {
         // You can get the data from a server.
         // Then convert that data into a form that can be used by the calendar.
         calendarDataSource = [
-            "07-Jan-2018": "SomeData",
-            "15-Jan-2018": "SomeMoreData",
-            "15-Feb-2018": "MoreData",
-            "21-Feb-2018": "onlyData",
+            "07-Oct-2019": "SomeData",
+            "15-Oct-2019": "SomeMoreData",
+            "21-Oct-2019": "onlyData",
         ]
         // update the calendar
         calendarView.reloadData()
@@ -56,10 +57,10 @@ class FourthViewController: UIViewController {
     
     func handleCellEvents(cell: DateCell, cellState: CellState) {
         let dateString = formatter.string(from: cellState.date)
-        if calendarDataSource[dateString] == nil {
-            cell.dotView.isHidden = true
+        if calendarDataSource[dateString] != nil {
+            cell.layer.backgroundColor = UIColor.lightGray.cgColor
         } else {
-            cell.dotView.isHidden = false
+            cell.layer.backgroundColor = UIColor(displayP3Red: 211.0, green: 211.0, blue: 211.0, alpha: 1.0).cgColor
         }
     }
     /*
@@ -78,8 +79,8 @@ extension FourthViewController: JTACMonthViewDataSource {
     func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
         formatter.dateFormat = "dd-MMM-yyyy"
 
-        let startDate = formatter.date(from: "01-jan-2018")!
-        let endDate = Date()
+        let startDate = formatter.date(from: "01-aug-2019")!
+        let endDate = formatter.date(from: "01-aug-2020")!
         return ConfigurationParameters(startDate: startDate, endDate: endDate)
     }
     
@@ -99,7 +100,7 @@ extension FourthViewController: JTACMonthViewDelegate {
     
     func calendar(_ calendar: JTACMonthView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTACMonthReusableView {
         let formatter = DateFormatter()  // Declare this outside, to avoid instancing this heavy class multiple times.
-        formatter.dateFormat = "MMM"
+        formatter.dateFormat = "MMM yyyy"
         
         let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "DateHeader", for: indexPath) as! DateHeader
         header.monthTitle.text = formatter.string(from: range.start)

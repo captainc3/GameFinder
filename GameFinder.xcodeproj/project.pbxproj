@@ -10,7 +10,6 @@
 		1FF502452347F51A0008E0C1 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF502442347F51A0008E0C1 /* LoginController.swift */; };
 		1FF502472347F5BD0008E0C1 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF502462347F5BD0008E0C1 /* SignUpController.swift */; };
 		1FF502492347F6E00008E0C1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF502482347F6E00008E0C1 /* Extensions.swift */; };
-		1FF5024B23480CBC0008E0C1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FF5024A23480CBB0008E0C1 /* GoogleService-Info.plist */; };
 		83BF1A6376D168D827207EAA /* Pods_GameFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1479D36EC1AE6136DA6C7954 /* Pods_GameFinder.framework */; };
 		9251E96D234525AF00DFF651 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9251E96C234525AF00DFF651 /* AppDelegate.swift */; };
 		9251E96F234525AF00DFF651 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9251E96E234525AF00DFF651 /* SceneDelegate.swift */; };
@@ -23,8 +22,8 @@
 		9251E985234525F000DFF651 /* FourthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9251E984234525F000DFF651 /* FourthViewController.swift */; };
 		9251E9872345294500DFF651 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9251E9862345294500DFF651 /* CustomTabBarController.swift */; };
 		9313907C234A66FF008FBA2C /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313907B234A66FF008FBA2C /* DateCell.swift */; };
+		934A240E234AAF3200C63192 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 934A240D234AAF3200C63192 /* GoogleService-Info.plist */; };
 		93B8E409234A69C50007369D /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B8E408234A69C50007369D /* DateHeader.swift */; };
-		E49D6944558B628340ED9616 /* Pods_GameFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5639F3544F0D85133756116 /* Pods_GameFinder.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +31,6 @@
 		1FF502442347F51A0008E0C1 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		1FF502462347F5BD0008E0C1 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		1FF502482347F6E00008E0C1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		1FF5024A23480CBB0008E0C1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2AB73968A9EE02E2982E9ABB /* Pods-GameFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameFinder.release.xcconfig"; path = "Target Support Files/Pods-GameFinder/Pods-GameFinder.release.xcconfig"; sourceTree = "<group>"; };
 		8C2E06C43076BD99ADC81936 /* Pods-GameFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameFinder.debug.xcconfig"; path = "Target Support Files/Pods-GameFinder/Pods-GameFinder.debug.xcconfig"; sourceTree = "<group>"; };
 		9251E969234525AF00DFF651 /* GameFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,10 +46,8 @@
 		9251E984234525F000DFF651 /* FourthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthViewController.swift; sourceTree = "<group>"; };
 		9251E9862345294500DFF651 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		9313907B234A66FF008FBA2C /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
+		934A240D234AAF3200C63192 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		93B8E408234A69C50007369D /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
-		C5639F3544F0D85133756116 /* Pods_GameFinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameFinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C760A371D91732210B227642 /* Pods-GameFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameFinder.debug.xcconfig"; path = "Target Support Files/Pods-GameFinder/Pods-GameFinder.debug.xcconfig"; sourceTree = "<group>"; };
-		EEE14E2431316B5DBAD6C9D5 /* Pods-GameFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameFinder.release.xcconfig"; path = "Target Support Files/Pods-GameFinder/Pods-GameFinder.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +68,6 @@
 				8C2E06C43076BD99ADC81936 /* Pods-GameFinder.debug.xcconfig */,
 				2AB73968A9EE02E2982E9ABB /* Pods-GameFinder.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -97,6 +92,7 @@
 		9251E96B234525AF00DFF651 /* GameFinder */ = {
 			isa = PBXGroup;
 			children = (
+				934A240D234AAF3200C63192 /* GoogleService-Info.plist */,
 				9251E96C234525AF00DFF651 /* AppDelegate.swift */,
 				9313907B234A66FF008FBA2C /* DateCell.swift */,
 				93B8E408234A69C50007369D /* DateHeader.swift */,
@@ -106,7 +102,6 @@
 				9251E974234525AF00DFF651 /* Main.storyboard */,
 				9251E977234525B000DFF651 /* Assets.xcassets */,
 				9251E979234525B000DFF651 /* LaunchScreen.storyboard */,
-				1FF5024A23480CBB0008E0C1 /* GoogleService-Info.plist */,
 				9251E97C234525B000DFF651 /* Info.plist */,
 				9251E982234525E700DFF651 /* ThirdViewController.swift */,
 				9251E984234525F000DFF651 /* FourthViewController.swift */,
@@ -187,7 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9251E97B234525B000DFF651 /* LaunchScreen.storyboard in Resources */,
-				1FF5024B23480CBC0008E0C1 /* GoogleService-Info.plist in Resources */,
+				934A240E234AAF3200C63192 /* GoogleService-Info.plist in Resources */,
 				9251E978234525B000DFF651 /* Assets.xcassets in Resources */,
 				9251E976234525AF00DFF651 /* Main.storyboard in Resources */,
 			);
