@@ -29,15 +29,16 @@ class FourthViewController: UIViewController {
     
     @objc func buttonClicked(sender: UIButton!) {
         print(sender.currentTitle!)
-        
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "econtroller") as! UINavigationController
+        UIApplication.shared.keyWindow?.rootViewController = viewController
     }
     
     func configureCell(view: JTACDayCell?, cellState: CellState) {
         guard let cell = view as? DateCell  else { return }
         cell.dateLabel.text = cellState.text
-        cell.layer.borderWidth = 0.2
+        cell.layer.borderWidth = 0.3
         cell.layer.borderColor = UIColor.black.cgColor
-        handleCellSelection(view: cell, cellState: cellState)
         handleCellTextColor(cell: cell, cellState: cellState)
         handleCellEvents(cell: cell, cellState: cellState)
         cell.dateButton.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
@@ -69,27 +70,11 @@ class FourthViewController: UIViewController {
     func handleCellEvents(cell: DateCell, cellState: CellState) {
         let dateString = formatter.string(from: cellState.date)
         if calendarDataSource[dateString] != nil {
-            cell.layer.backgroundColor = UIColor.lightGray.cgColor
             cell.dateButton.isHidden = false
         } else {
-            cell.layer.backgroundColor = UIColor(displayP3Red: 211.0, green: 211.0, blue: 211.0, alpha: 1.0).cgColor
             cell.dateButton.isHidden = true
         }
     }
-
-    func handleCellSelection(view: DateCell, cellState: CellState) {
-            if cellState.isSelected {
-                let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let viewController = mainStoryboard.instantiateViewController(withIdentifier: "econtroller") as! UINavigationController
-                UIApplication.shared.keyWindow?.rootViewController = viewController
-                print(cellState.date)
-                view.layer.backgroundColor = UIColor.red.cgColor
-            } else {
-                view.layer.backgroundColor = UIColor.white.cgColor
-            }
-    }
-
-    var iii: Date?
 }
 
 extension FourthViewController: JTACMonthViewDataSource {
@@ -107,7 +92,6 @@ extension FourthViewController: JTACMonthViewDelegate {
     func calendar(_ calendar: JTACMonthView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTACDayCell {
         let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "dateCell", for: indexPath) as! DateCell
         self.calendar(calendar, willDisplay: cell, forItemAt: date, cellState: cellState, indexPath: indexPath)
-//        handleCellSelection(cell: cell, cellState: cellState)
         return cell
     }
     
@@ -115,17 +99,6 @@ extension FourthViewController: JTACMonthViewDelegate {
         guard let cell = cell as? DateCell else { return }
         configureCell(view: cell, cellState: cellState)
     }
-    
-    func calendar(_ calendar: JTACMonthView, didSelectDate date: Date, cell: JTACDayCell?, cellState: CellState) {
-//        handleCellSelection(view: cell, cellState: cellState)
-        configureCell(view: cell, cellState: cellState)
-    }
-    
-    func calendar(_ calendar: JTACMonthView, didDeselectDate date: Date, cell: JTACDayCell?, cellState: CellState) {
-//        handleCellSelection(view: cell, cellState: cellState)
-        configureCell(view: cell, cellState: cellState)
-    }
-    
     
     func calendar(_ calendar: JTACMonthView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTACMonthReusableView {
         let formatter = DateFormatter()  // Declare this outside, to avoid instancing this heavy class multiple times.
@@ -139,8 +112,5 @@ extension FourthViewController: JTACMonthViewDelegate {
     func calendarSizeForMonths(_ calendar: JTACMonthView?) -> MonthSize? {
         return MonthSize(defaultSize: 50)
     }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        calendarView.viewWillTransition(to: size, with: coordinator, anchorDate: iii)
-    }
+
 }
