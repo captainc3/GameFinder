@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -56,7 +56,7 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="Ds5-4t-Z8x"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Third" image="profile-" id="1k3-8M-f6l"/>
@@ -104,26 +104,85 @@
         <scene sceneID="7C1-NC-8yL">
             <objects>
                 <viewController id="pyN-xI-wgQ" customClass="FourthViewController" customModule="GameFinder" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="0Zh-hF-uaN">
+                    <view key="view" contentMode="scaleToFill" id="e3N-E6-iGA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Fourth View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9nh-ND-jff">
-                                <rect key="frame" x="167" y="438" width="92" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Xhz-uM-olX" customClass="JTACMonthView" customModule="JTAppleCalendar">
+                                <rect key="frame" x="40" y="98" width="336" height="450"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="450" id="Pca-nf-74g"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="8MZ-NK-REb">
+                                    <size key="itemSize" width="85" height="84"/>
+                                    <size key="headerReferenceSize" width="50" height="79"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dateCell" id="awG-be-6B3" customClass="DateCell" customModule="GameFinder">
+                                        <rect key="frame" x="0.0" y="79" width="85" height="84"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="85" height="84"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dateHere" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TjT-Jj-VKq">
+                                                    <rect key="frame" x="7" y="32" width="71" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="TjT-Jj-VKq" firstAttribute="centerX" secondItem="awG-be-6B3" secondAttribute="centerX" id="Y8v-kw-rCR"/>
+                                            <constraint firstItem="TjT-Jj-VKq" firstAttribute="centerY" secondItem="awG-be-6B3" secondAttribute="centerY" id="wAw-ns-GI4"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="TjT-Jj-VKq" id="lPo-h5-yc5"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="DateHeader" id="oPn-dQ-Hq6" customClass="DateHeader" customModule="GameFinder">
+                                    <rect key="frame" x="0.0" y="0.0" width="336" height="79"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MonthLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qh7-xX-qxc">
+                                            <rect key="frame" x="122.5" y="29" width="91" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.74509803919999995" green="0.90196078430000004" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="qh7-xX-qxc" firstAttribute="centerX" secondItem="oPn-dQ-Hq6" secondAttribute="centerX" id="O8A-bM-CIi"/>
+                                        <constraint firstItem="qh7-xX-qxc" firstAttribute="centerY" secondItem="oPn-dQ-Hq6" secondAttribute="centerY" id="SLU-Oi-Ugb"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="monthTitle" destination="qh7-xX-qxc" id="mc6-PJ-gYj"/>
+                                    </connections>
+                                </collectionReusableView>
+                            </collectionView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="FVw-az-xfs"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="O3p-oF-62M" firstAttribute="trailing" secondItem="Xhz-uM-olX" secondAttribute="trailing" constant="38" id="b1p-qz-dq2"/>
+                            <constraint firstItem="Xhz-uM-olX" firstAttribute="top" secondItem="O3p-oF-62M" secondAttribute="top" constant="54" id="bcT-T1-a29"/>
+                            <constraint firstItem="Xhz-uM-olX" firstAttribute="leading" secondItem="O3p-oF-62M" secondAttribute="leading" constant="40" id="zE3-2L-95F"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="O3p-oF-62M"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Fourth" image="profile-" id="7rv-bg-8ws"/>
+                    <connections>
+                        <outlet property="calendarView" destination="Xhz-uM-olX" id="sSu-cw-5R0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bR-jh-hiw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1621" y="477"/>
+            <point key="canvasLocation" x="1620.289855072464" y="476.78571428571428"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -170,5 +229,5 @@
         <image name="alert-" width="17.5" height="19"/>
         <image name="profile-" width="19" height="19"/>
     </resources>
-    <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+    <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
