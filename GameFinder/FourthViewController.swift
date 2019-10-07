@@ -17,7 +17,7 @@ class FourthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBarItem.title = "Home"
+        tabBarItem.title = "Calendar"
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self
         calendarView.scrollDirection = .vertical

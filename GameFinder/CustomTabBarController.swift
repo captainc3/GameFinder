@@ -36,11 +36,11 @@ class CustomTabBarController: UITabBarController {
         tabBarIteam.image = deSelectedImage3
         tabBarIteam.selectedImage = selectedImage3
         
-        let selectedImage4 = UIImage(named: "profile_white-")?.withRenderingMode(.alwaysOriginal)
-        let deSelectedImage4 = UIImage(named: "profile-")?.withRenderingMode(.alwaysOriginal)
-        tabBarIteam = self.tabBar.items![3]
-        tabBarIteam.image = deSelectedImage4
-        tabBarIteam.selectedImage = selectedImage4
+//        let selectedImage4 = UIImage(named: "profile_white-")?.withRenderingMode(.alwaysOriginal)
+//        let deSelectedImage4 = UIImage(named: "profile-")?.withRenderingMode(.alwaysOriginal)
+//        tabBarIteam = self.tabBar.items![3]
+//        tabBarIteam.image = deSelectedImage4
+//        tabBarIteam.selectedImage = selectedImage4
         
         self.selectedIndex = 0
         
