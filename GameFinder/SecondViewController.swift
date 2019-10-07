@@ -12,6 +12,8 @@ import Firebase
 
 class SecondViewController: UIViewController, UITextFieldDelegate {
     
+    var datePicker: UIDatePicker?
+    
     // MARK: - Properties
     
     func showToast(message : String) {
@@ -66,6 +68,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         return tf.textField(withPlaceolder: "Time of Event", isSecureTextEntry: false)
     }()
     
+    
     lazy var passwordTextField: UITextField = {
         let tf = UITextField()
         return tf.textField(withPlaceolder: "Location", isSecureTextEntry: true)
@@ -100,6 +103,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self
         usernameTextField.delegate = self
         
+        
         // Do any additional setup after loading the view.
     }
     
@@ -116,6 +120,19 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Helper Functions
     
+    @objc func dateChanged(datePicker: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "E, MMM d yyyy h:mm a"
+        usernameTextField.text = dateFormatter.string(from: datePicker.date)
+        view.endEditing(true)
+    }
+    
+    @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
+    
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(SecondViewController.viewTapped(gestureRecognizer:)))
+    
     func configureViewComponents() {
         tabBarItem.title = "Create Event"
         view.backgroundColor = UIColor.mainBlue()
@@ -130,6 +147,12 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         
         view.addSubview(usernameContainerView)
         usernameContainerView.anchor(top: emailContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+        //Date Picker
+        datePicker = UIDatePicker()
+        datePicker?.datePickerMode = .dateAndTime
+        datePicker?.addTarget(self, action: #selector(SecondViewController.dateChanged(datePicker:)), for: .valueChanged)
+        
+        usernameTextField.inputView = datePicker
         
         view.addSubview(passwordContainerView)
         passwordContainerView.anchor(top: usernameContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 16, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
