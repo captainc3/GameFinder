@@ -17,6 +17,7 @@ class FourthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.mainBlue()
         tabBarItem.title = "Calendar"
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self

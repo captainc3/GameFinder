@@ -43,35 +43,35 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         return iv
     }()
     
-    lazy var emailContainerView: UIView = {
+    lazy var nameContainerView: UIView = {
         let view = UIView()
-        return view.textContainerView(view: view, #imageLiteral(resourceName: "profile_white- "), emailTextField)
+        return view.textContainerView(view: view, #imageLiteral(resourceName: "profile_white- "), nameTextField)
     }()
     
-    lazy var usernameContainerView: UIView = {
+    lazy var timeContainerView: UIView = {
         let view = UIView()
-        return view.textContainerView(view: view, #imageLiteral(resourceName: "alert_white-"), usernameTextField)
+        return view.textContainerView(view: view, #imageLiteral(resourceName: "alert_white-"), timeTextField)
     }()
     
-    lazy var passwordContainerView: UIView = {
+    lazy var locationContainerView: UIView = {
         let view = UIView()
-        return view.textContainerView(view: view, #imageLiteral(resourceName: "add_white-"), passwordTextField)
+        return view.textContainerView(view: view, #imageLiteral(resourceName: "add_white-"), locationTextField)
     }()
     
-    lazy var emailTextField: UITextField = {
+    lazy var nameTextField: UITextField = {
         let tf = UITextField()
         return tf.textField(withPlaceolder: "Name of Event", isSecureTextEntry: false)
     }()
     
-    lazy var usernameTextField: UITextField = {
+    lazy var timeTextField: UITextField = {
         let tf = UITextField()
         return tf.textField(withPlaceolder: "Time of Event", isSecureTextEntry: false)
     }()
     
     
-    lazy var passwordTextField: UITextField = {
+    lazy var locationTextField: UITextField = {
         let tf = UITextField()
-        return tf.textField(withPlaceolder: "Location", isSecureTextEntry: true)
+        return tf.textField(withPlaceolder: "Location", isSecureTextEntry: false)
     }()
     
     
@@ -81,7 +81,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         button.setTitleColor(UIColor.mainBlue(), for: .normal)
         button.backgroundColor = .white
-        button.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleCreateEvent), for: .touchUpInside)
         button.layer.cornerRadius = 5
         return button
     }()
@@ -90,18 +90,18 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Init
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate method
-        emailTextField.resignFirstResponder()
-        passwordTextField.resignFirstResponder()
-        usernameTextField.resignFirstResponder()
+        nameTextField.resignFirstResponder()
+        locationTextField.resignFirstResponder()
+        timeTextField.resignFirstResponder()
         return true
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewComponents()
-        emailTextField.delegate = self
-        passwordTextField.delegate = self
-        usernameTextField.delegate = self
+        nameTextField.delegate = self
+        locationTextField.delegate = self
+        timeTextField.delegate = self
         
         
         // Do any additional setup after loading the view.
@@ -109,21 +109,34 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Selectors
     
-    @objc func handleSignUp() {
+    @objc func handleCreateEvent() {
+        print("in event handler")
+        guard let name = nameTextField.text else { return }
+        guard let time = timeTextField.text else { return }
+        guard let location = locationTextField.text else { return }
+        createEvent(name: name, time: time, location: location)
         
     }
     
     
     // MARK: - API
     
-    
-    
+    func createEvent(name: String, time: String, location: String) {
+        let values = ["time of event": time, "location of event": location]
+       //EVENT CREATION IN DATABASE!!!!
+        Database.database().reference().child("events").child(name).updateChildValues(values, withCompletionBlock: { (error, ref) in
+            if let error = error {
+                print("Failed to update database values with error: ", error.localizedDescription)
+                return
+            }
+        })
+    }
     // MARK: - Helper Functions
     
     @objc func dateChanged(datePicker: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "E, MMM d yyyy h:mm a"
-        usernameTextField.text = dateFormatter.string(from: datePicker.date)
+        timeTextField.text = dateFormatter.string(from: datePicker.date)
         view.endEditing(true)
     }
     
@@ -142,23 +155,23 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         logoImageView.anchor(top: view.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 60, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 150, height: 150)
         logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        view.addSubview(emailContainerView)
-        emailContainerView.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+        view.addSubview(nameContainerView)
+        nameContainerView.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
         
-        view.addSubview(usernameContainerView)
-        usernameContainerView.anchor(top: emailContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+        view.addSubview(timeContainerView)
+        timeContainerView.anchor(top: nameContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
         //Date Picker
         datePicker = UIDatePicker()
         datePicker?.datePickerMode = .dateAndTime
         datePicker?.addTarget(self, action: #selector(SecondViewController.dateChanged(datePicker:)), for: .valueChanged)
         
-        usernameTextField.inputView = datePicker
+        timeTextField.inputView = datePicker
         
-        view.addSubview(passwordContainerView)
-        passwordContainerView.anchor(top: usernameContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 16, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+        view.addSubview(locationContainerView)
+        locationContainerView.anchor(top: timeContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 16, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
         
         view.addSubview(loginButton)
-        loginButton.anchor(top: passwordContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+        loginButton.anchor(top: locationContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
         
     }
 }
