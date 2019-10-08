@@ -122,14 +122,21 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     // MARK: - API
     
     func createEvent(name: String, time: String, location: String) {
-        let values = ["time of event": time, "location of event": location]
-       //EVENT CREATION IN DATABASE!!!!
-        Database.database().reference().child("events").child(name).updateChildValues(values, withCompletionBlock: { (error, ref) in
-            if let error = error {
-                print("Failed to update database values with error: ", error.localizedDescription)
-                return
-            }
-        })
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        Database.database().reference().child("users").child(uid).child("username").observeSingleEvent(of: .value) { (snapshot) in
+            guard let username = snapshot.value as? String else { return }
+            
+            let values = ["time of event": time, "location of event": location, "Creator": username]
+            //EVENT CREATION IN DATABASE!!!!
+             Database.database().reference().child("events").child(name + " Created by " + username).updateChildValues(values, withCompletionBlock: { (error, ref) in
+                 if let error = error {
+                     print("Failed to update database values with error: ", error.localizedDescription)
+                     return
+                 }
+             })
+        }
+        
     }
     // MARK: - Helper Functions
     
