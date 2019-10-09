@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -56,21 +56,42 @@
             <point key="canvasLocation" x="749" y="-352"/>
         </scene>
         <!--View Events-->
-        <scene sceneID="Q2F-iq-0cq">
+        <scene sceneID="giR-Iw-aHp">
             <objects>
-                <viewController id="dHY-fl-lxu" customClass="ThirdViewController" customModule="GameFinder" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ct9-BS-Jjq">
+                <tableViewController id="Cwt-2y-djr" customClass="ThirdViewController" customModule="GameFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="frE-2q-f1L">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="Ds5-4t-Z8x"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="View Events" image="doc.text.magnifyingglass" catalog="system" id="1k3-8M-f6l"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YCE-Z3-rnF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="cell" textLabel="OfN-3L-QQS" rowHeight="75" style="IBUITableViewCellStyleDefault" id="ZPo-2e-Bub">
+                                <rect key="frame" x="0.0" y="28" width="414" height="75"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZPo-2e-Bub" id="Rt2-zX-OkF">
+                                    <rect key="frame" x="0.0" y="0.0" width="370" height="75"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OfN-3L-QQS">
+                                            <rect key="frame" x="20" y="0.0" width="342" height="75"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Cwt-2y-djr" id="7wl-Z5-2SO"/>
+                            <outlet property="delegate" destination="Cwt-2y-djr" id="wdy-eV-5db"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="View Events" image="doc.text.magnifyingglass" catalog="system" id="YCh-Ck-jHi"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gnO-8h-w4N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1620" y="-352"/>
+            <point key="canvasLocation" x="1618.840579710145" y="-352.23214285714283"/>
         </scene>
         <!--Create Event-->
         <scene sceneID="wg7-f3-ORb">
@@ -124,7 +145,7 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="dateButton" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B3E-NH-XhM">
                                                     <rect key="frame" x="32.5" y="55" width="20" height="15"/>
-                                                    <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="ZKf-Iz-BIc"/>
                                                         <constraint firstAttribute="width" constant="20" id="faU-PL-tUk"/>
@@ -198,8 +219,8 @@
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
-                        <segue destination="dHY-fl-lxu" kind="relationship" relationship="viewControllers" id="4T7-ib-YPX"/>
-                        <segue destination="pyN-xI-wgQ" kind="relationship" relationship="viewControllers" id="0aH-wn-hhU"/>
+                        <segue destination="Cwt-2y-djr" kind="relationship" relationship="viewControllers" id="4hb-rp-7x4"/>
+                        <segue destination="pyN-xI-wgQ" kind="relationship" relationship="viewControllers" id="Uy2-p4-7uA"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -244,10 +265,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="calendar" catalog="system" width="64" height="52"/>
-        <image name="doc.text.magnifyingglass" catalog="system" width="58" height="64"/>
+        <image name="calendar" catalog="system" width="64" height="54"/>
+        <image name="doc.text.magnifyingglass" catalog="system" width="56" height="64"/>
         <image name="house" catalog="system" width="64" height="54"/>
         <image name="square.and.pencil" catalog="system" width="64" height="58"/>
     </resources>
-    <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+    <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
