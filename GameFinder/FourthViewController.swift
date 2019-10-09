@@ -62,9 +62,9 @@ class FourthViewController: UIViewController {
         // You can get the data from a server.
         // Then convert that data into a form that can be used by the calendar.
         calendarDataSource = [
-            "07-Oct-2019": "SomeData",
-            "15-Oct-2019": "SomeMoreData",
-            "21-Oct-2019": "onlyData",
+            "11-Oct-2019": "SomeData",
+            "10-Oct-2019": "SomeData",
+            "09-Oct-2019": "SomeData",
         ]
         // update the calendar
         calendarView.reloadData()

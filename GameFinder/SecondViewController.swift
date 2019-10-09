@@ -39,7 +39,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
-        iv.image = #imageLiteral(resourceName: "alert-")
+        iv.image = #imageLiteral(resourceName: "firebase-logo")
         return iv
     }()
     
