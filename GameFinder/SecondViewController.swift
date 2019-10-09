@@ -18,7 +18,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     
     func showToast(message : String) {
 
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 90, y: self.view.frame.size.height - 385, width: 180, height: 35))
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 150, y: self.view.frame.size.height/2, width: 300, height: 35))
         toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         toastLabel.textColor = UIColor.white
         toastLabel.textAlignment = .center;
@@ -45,7 +45,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     
     lazy var nameContainerView: UIView = {
         let view = UIView()
-        return view.textContainerView(view: view, #imageLiteral(resourceName: "profile_white- "), nameTextField)
+        return view.textContainerView(view: view, #imageLiteral(resourceName: "add-"), nameTextField)
     }()
     
     lazy var timeContainerView: UIView = {
@@ -56,6 +56,11 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     lazy var locationContainerView: UIView = {
         let view = UIView()
         return view.textContainerView(view: view, #imageLiteral(resourceName: "add_white-"), locationTextField)
+    }()
+    
+    lazy var skillContainerView: UIView = {
+        let view = UIView()
+        return view.textContainerView(view: view, #imageLiteral(resourceName: "ic_person_outline_white_2x"), skillTextField)
     }()
     
     lazy var nameTextField: UITextField = {
@@ -71,7 +76,12 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     
     lazy var locationTextField: UITextField = {
         let tf = UITextField()
-        return tf.textField(withPlaceolder: "Location", isSecureTextEntry: false)
+        return tf.textField(withPlaceolder: "Location of Event", isSecureTextEntry: false)
+    }()
+    
+    lazy var skillTextField: UITextField = {
+        let tf = UITextField()
+        return tf.textField(withPlaceolder: "Preferred Skill of Participants", isSecureTextEntry: false)
     }()
     
     
@@ -93,6 +103,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         nameTextField.resignFirstResponder()
         locationTextField.resignFirstResponder()
         timeTextField.resignFirstResponder()
+        skillTextField.resignFirstResponder()
         return true
     }
 
@@ -102,6 +113,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         nameTextField.delegate = self
         locationTextField.delegate = self
         timeTextField.delegate = self
+        skillTextField.delegate = self
         
         
         // Do any additional setup after loading the view.
@@ -114,28 +126,30 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         guard let name = nameTextField.text else { return }
         guard let time = timeTextField.text else { return }
         guard let location = locationTextField.text else { return }
-        createEvent(name: name, time: time, location: location)
+        guard let skill = skillTextField.text else { return }
+        createEvent(name: name, time: time, location: location, skill: skill)
         
     }
     
     
     // MARK: - API
     
-    func createEvent(name: String, time: String, location: String) {
+    func createEvent(name: String, time: String, location: String, skill: String) {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
         Database.database().reference().child("users").child(uid).child("username").observeSingleEvent(of: .value) { (snapshot) in
             guard let username = snapshot.value as? String else { return }
             
-            let values = ["time of event": time, "location of event": location, "Creator": username]
+            let values = ["Skill": skill, "Time of event": time, "Location of event": location, "Creator": username]
             //EVENT CREATION IN DATABASE!!!!
-             Database.database().reference().child("events").child(name + " Created by " + username).updateChildValues(values, withCompletionBlock: { (error, ref) in
+             Database.database().reference().child("events").child(name + " Created by: " + username).updateChildValues(values, withCompletionBlock: { (error, ref) in
                  if let error = error {
                      print("Failed to update database values with error: ", error.localizedDescription)
                      return
                  }
              })
         }
+        showToast(message: "Successfully Created an Event!")
         
     }
     // MARK: - Helper Functions
@@ -177,8 +191,11 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(locationContainerView)
         locationContainerView.anchor(top: timeContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 16, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
         
+        view.addSubview(skillContainerView)
+        skillContainerView.anchor(top: locationContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 16, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+        
         view.addSubview(loginButton)
-        loginButton.anchor(top: locationContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+        loginButton.anchor(top: skillContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
         
     }
 }
