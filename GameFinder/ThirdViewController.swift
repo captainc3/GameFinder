@@ -1,79 +1,75 @@
-//
-//  ThirdViewController.swift
-//  GameFinder
-//
-//  Created by Steven Corrales on 10/2/19.
-//  Copyright © 2019 Steven Corrales. All rights reserved.
-//
-
 import UIKit
 
-struct cellData {
-    var opened = Bool()
-    var title = String()
-    var sectionData = [String]()
+struct Headline {
+    var id : Int
+    var date : Date
+    var title : String
+    var text : String
+    var image : String
 }
 
-class ViewController: UITableViewController {
-    
-    var tableViewData = [cellData]()
+private func firstDayOfMonth(date: Date) -> Date {
+    let calendar = Calendar.current
+    let components = calendar.dateComponents([.year, .month], from: date)
+    return calendar.date(from: components)!
+}
+
+private func parseDate(_ str : String) -> Date {
+    let dateFormat = DateFormatter()
+    dateFormat.dateFormat = "yyyy-MM-dd"
+    return dateFormat.date(from: str)!
+}
+
+class ThirdViewController: UITableViewController {
+
+    var headlines = [
+        Headline(id: 1, date: parseDate("2018-05-15"), title: "Proin suscipit maximus", text: "Quisque ultrices odio in neque eleifend eleifend. Praesent tincidunt euismod sem, et rhoncus lorem facilisis eget.", image: "Blueberry"),
+        Headline(id: 2, date: parseDate("2018-02-15"), title: "In ac ante sapien", text: "Aliquam egestas ultricies dapibus. Nam molestie nunc in ipsum vehicula accumsan quis sit amet quam. Sed vel feugiat eros.", image: "Cantaloupe"),
+        Headline(id: 3, date: parseDate("2018-03-05"), title: "Lorem Ipsum", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ornare tortor, quis dictum enim. Morbi convallis tincidunt quam eget bibendum. Suspendisse malesuada maximus ante, at molestie massa fringilla id.", image: "Apple"),
+        Headline(id: 4, date: parseDate("2018-02-10"), title: "Aenean condimentum", text: "Ut eget massa erat. Morbi mauris diam, vulputate at luctus non, finibus et diam. Morbi et felis a lacus pharetra blandit.", image: "Banana"),
+    ]
+
+    var sections = [GroupedSection<Date, Headline>]()
+
+    // MARK: - View Controller lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        
-        view.backgroundColor = UIColor.mainBlue()
-        tabBarItem.title = "View Events"
-        
-        tableViewData = [cellData(opened: false, title: "Title1", sectionData: ["cell1", "cell2", "cell3"]),
-        cellData(opened: false, title: "Title1", sectionData: ["cell1", "cell2", "cell3"]),
-        cellData(opened: false, title: "Title1", sectionData: ["cell1", "cell2", "cell3"])]
 
-        // Do any additional setup after loading the view.
+        self.sections = GroupedSection.group(rows: self.headlines, by: { firstDayOfMonth(date: $0.date) })
+        self.sections.sort { lhs, rhs in lhs.sectionItem < rhs.sectionItem }
+
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        //disposes of any resources that can be recreated
-    }
-    
+
+    // MARK: - UITableViewDataSource
+
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return (tableViewData.count + 1)
+        return self.sections.count
     }
-    
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let section = self.sections[section]
+        let date = section.sectionItem
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM yyyy"
+        return dateFormatter.string(from: date)
+    }
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableViewData[section].opened == true {
-            return tableViewData[section].sectionData.count
-        } else {
-            return 1
-        }
+        let section = self.sections[section]
+        return section.rows.count
     }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") else {return UITableViewCell()}
-            cell.textLabel?.text = tableViewData[indexPath.section].title
-            return cell
-        } else {
-            //use different cell identifier if needed
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") else {return UITableViewCell()}
-            cell.textLabel?.text = tableViewData[indexPath.section].sectionData[indexPath.row - 1]
-            return cell
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            if tableViewData[indexPath.section].opened == true {
-                tableViewData[indexPath.section].opened == false
-                let sections = IndexSet.init(integer: indexPath.section)
-                tableView.reloadSections(sections, with: .none) //can mess with this later
-            } else {
-                tableViewData[indexPath.section].opened == true
-                let sections = IndexSet.init(integer: indexPath.section)
-                tableView.reloadSections(sections, with: .none) //can mess with this later
-            }
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+
+        let section = self.sections[indexPath.section]
+        let headline = section.rows[indexPath.row]
+        cell.textLabel?.text = headline.title
+        cell.detailTextLabel?.text = headline.text
+        cell.imageView?.image = UIImage(named: headline.image)
+
+        return cell
     }
 
 }
