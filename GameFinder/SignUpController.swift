@@ -16,7 +16,7 @@ class SignUpController: UIViewController, UITextFieldDelegate {
     
     func showToast(message : String) {
 
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 90, y: self.view.frame.size.height - 385, width: 180, height: 35))
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 90, y: self.view.frame.size.height/2, width: 180, height: 35))
         toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         toastLabel.textColor = UIColor.white
         toastLabel.textAlignment = .center;
@@ -51,6 +51,11 @@ class SignUpController: UIViewController, UITextFieldDelegate {
         return view.textContainerView(view: view, #imageLiteral(resourceName: "ic_person_outline_white_2x"), usernameTextField)
     }()
     
+    lazy var lnameContainerView: UIView = {
+        let view = UIView()
+        return view.textContainerView(view: view, #imageLiteral(resourceName: "ic_person_outline_white_2x"), lnameTextField)
+    }()
+    
     lazy var passwordContainerView: UIView = {
         let view = UIView()
         return view.textContainerView(view: view, #imageLiteral(resourceName: "ic_lock_outline_white_2x"), passwordTextField)
@@ -63,7 +68,12 @@ class SignUpController: UIViewController, UITextFieldDelegate {
     
     lazy var usernameTextField: UITextField = {
         let tf = UITextField()
-        return tf.textField(withPlaceolder: "Username", isSecureTextEntry: false)
+        return tf.textField(withPlaceolder: "First Name", isSecureTextEntry: false)
+    }()
+    
+    lazy var lnameTextField: UITextField = {
+        let tf = UITextField()
+        return tf.textField(withPlaceolder: "Last Name", isSecureTextEntry: false)
     }()
     
     lazy var passwordTextField: UITextField = {
@@ -98,6 +108,7 @@ class SignUpController: UIViewController, UITextFieldDelegate {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
         usernameTextField.resignFirstResponder()
+        lnameTextField.resignFirstResponder()
         return true
     }
 
@@ -107,6 +118,7 @@ class SignUpController: UIViewController, UITextFieldDelegate {
         emailTextField.delegate = self
         passwordTextField.delegate = self
         usernameTextField.delegate = self
+        lnameTextField.delegate = self
         
         // Do any additional setup after loading the view.
     }
@@ -117,8 +129,9 @@ class SignUpController: UIViewController, UITextFieldDelegate {
         guard let email = emailTextField.text else { return }
         guard let password = passwordTextField.text else { return }
         guard let username = usernameTextField.text else { return }
+        guard let lname = lnameTextField.text else { return }
         
-        createUser(withEmail: email, password: password, username: username)
+        createUser(withEmail: email, password: password, username: username, lname: lname)
     }
     
     @objc func handleShowLogin() {
@@ -127,7 +140,7 @@ class SignUpController: UIViewController, UITextFieldDelegate {
     
     // MARK: - API
     
-    func createUser(withEmail email: String, password: String, username: String) {
+    func createUser(withEmail email: String, password: String, username: String, lname: String) {
         
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             
@@ -139,7 +152,7 @@ class SignUpController: UIViewController, UITextFieldDelegate {
             
             guard let uid = result?.user.uid else { return }
             
-            let values = ["email": email, "username": username]
+            let values = ["email": email, "username": username + " " + lname.prefix(1)]
             
             Database.database().reference().child("users").child(uid).updateChildValues(values, withCompletionBlock: { (error, ref) in
                 if let error = error {
@@ -172,8 +185,11 @@ class SignUpController: UIViewController, UITextFieldDelegate {
         view.addSubview(usernameContainerView)
         usernameContainerView.anchor(top: emailContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
         
+        view.addSubview(lnameContainerView)
+        lnameContainerView.anchor(top: usernameContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+        
         view.addSubview(passwordContainerView)
-        passwordContainerView.anchor(top: usernameContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 16, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+        passwordContainerView.anchor(top: lnameContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 16, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
         
         view.addSubview(loginButton)
         loginButton.anchor(top: passwordContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)

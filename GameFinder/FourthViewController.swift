@@ -17,6 +17,8 @@ class FourthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.mainBlue()
+        tabBarItem.title = "Calendar"
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self
         calendarView.scrollDirection = .vertical
@@ -25,11 +27,14 @@ class FourthViewController: UIViewController {
         // Do any additional setup after loading the view.
 
         populateDataSource()
+        
     }
     
     @objc func buttonClicked(sender: UIButton!) {
         print(sender.currentTitle!)
-        
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "econtroller") as! UINavigationController
+        UIApplication.shared.keyWindow?.rootViewController = viewController
     }
     
     func configureCell(view: JTACDayCell?, cellState: CellState) {
@@ -57,9 +62,9 @@ class FourthViewController: UIViewController {
         // You can get the data from a server.
         // Then convert that data into a form that can be used by the calendar.
         calendarDataSource = [
-            "07-Oct-2019": "SomeData",
-            "15-Oct-2019": "SomeMoreData",
-            "21-Oct-2019": "onlyData",
+            "11-Oct-2019": "SomeData",
+            "10-Oct-2019": "SomeData",
+            "09-Oct-2019": "SomeData",
         ]
         // update the calendar
         calendarView.reloadData()
@@ -90,7 +95,6 @@ extension FourthViewController: JTACMonthViewDelegate {
     func calendar(_ calendar: JTACMonthView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTACDayCell {
         let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "dateCell", for: indexPath) as! DateCell
         self.calendar(calendar, willDisplay: cell, forItemAt: date, cellState: cellState, indexPath: indexPath)
-//        handleCellSelection(cell: cell, cellState: cellState)
         return cell
     }
     
@@ -111,4 +115,5 @@ extension FourthViewController: JTACMonthViewDelegate {
     func calendarSizeForMonths(_ calendar: JTACMonthView?) -> MonthSize? {
         return MonthSize(defaultSize: 50)
     }
+
 }

@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F625CC6234AE79B006D7ED2 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F625CC5234AE79B006D7ED2 /* EventController.swift */; };
 		1FF502452347F51A0008E0C1 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF502442347F51A0008E0C1 /* LoginController.swift */; };
 		1FF502472347F5BD0008E0C1 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF502462347F5BD0008E0C1 /* SignUpController.swift */; };
 		1FF502492347F6E00008E0C1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF502482347F6E00008E0C1 /* Extensions.swift */; };
 		83BF1A6376D168D827207EAA /* Pods_GameFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1479D36EC1AE6136DA6C7954 /* Pods_GameFinder.framework */; };
+		92258494235CED640027CEAF /* GroupedSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92258493235CED640027CEAF /* GroupedSection.swift */; };
 		9251E96D234525AF00DFF651 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9251E96C234525AF00DFF651 /* AppDelegate.swift */; };
 		9251E96F234525AF00DFF651 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9251E96E234525AF00DFF651 /* SceneDelegate.swift */; };
 		9251E971234525AF00DFF651 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9251E970234525AF00DFF651 /* FirstViewController.swift */; };
@@ -28,11 +30,13 @@
 
 /* Begin PBXFileReference section */
 		1479D36EC1AE6136DA6C7954 /* Pods_GameFinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameFinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F625CC5234AE79B006D7ED2 /* EventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
 		1FF502442347F51A0008E0C1 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		1FF502462347F5BD0008E0C1 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		1FF502482347F6E00008E0C1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		2AB73968A9EE02E2982E9ABB /* Pods-GameFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameFinder.release.xcconfig"; path = "Target Support Files/Pods-GameFinder/Pods-GameFinder.release.xcconfig"; sourceTree = "<group>"; };
 		8C2E06C43076BD99ADC81936 /* Pods-GameFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameFinder.debug.xcconfig"; path = "Target Support Files/Pods-GameFinder/Pods-GameFinder.debug.xcconfig"; sourceTree = "<group>"; };
+		92258493235CED640027CEAF /* GroupedSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupedSection.swift; sourceTree = "<group>"; };
 		9251E969234525AF00DFF651 /* GameFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9251E96C234525AF00DFF651 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9251E96E234525AF00DFF651 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,6 +75,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		92258492235CED640027CEAF /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				92258493235CED640027CEAF /* GroupedSection.swift */,
+			);
+			path = Common;
+			sourceTree = SOURCE_ROOT;
+		};
 		9251E960234525AF00DFF651 = {
 			isa = PBXGroup;
 			children = (
@@ -104,10 +116,12 @@
 				9251E979234525B000DFF651 /* LaunchScreen.storyboard */,
 				9251E97C234525B000DFF651 /* Info.plist */,
 				9251E982234525E700DFF651 /* ThirdViewController.swift */,
+				92258492235CED640027CEAF /* Common */,
 				9251E984234525F000DFF651 /* FourthViewController.swift */,
 				9251E9862345294500DFF651 /* CustomTabBarController.swift */,
 				1FF502442347F51A0008E0C1 /* LoginController.swift */,
 				1FF502462347F5BD0008E0C1 /* SignUpController.swift */,
+				1F625CC5234AE79B006D7ED2 /* EventController.swift */,
 				1FF502482347F6E00008E0C1 /* Extensions.swift */,
 			);
 			path = GameFinder;
@@ -241,6 +255,8 @@
 				9251E9872345294500DFF651 /* CustomTabBarController.swift in Sources */,
 				1FF502472347F5BD0008E0C1 /* SignUpController.swift in Sources */,
 				9251E973234525AF00DFF651 /* SecondViewController.swift in Sources */,
+				92258494235CED640027CEAF /* GroupedSection.swift in Sources */,
+				1F625CC6234AE79B006D7ED2 /* EventController.swift in Sources */,
 				93B8E409234A69C50007369D /* DateHeader.swift in Sources */,
 				9251E971234525AF00DFF651 /* FirstViewController.swift in Sources */,
 				1FF502492347F6E00008E0C1 /* Extensions.swift in Sources */,

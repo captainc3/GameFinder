@@ -23,7 +23,23 @@
             </objects>
             <point key="canvasLocation" x="-1265" y="0.0"/>
         </scene>
-        <!--First-->
+        <!--Event Controller-->
+        <scene sceneID="byD-iq-dqf">
+            <objects>
+                <viewController id="Sc9-D2-27b" customClass="EventController" customModule="GameFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="L1g-xB-F6s">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="gbl-tT-177"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="3pS-EY-FJu"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gwW-Gu-qsv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="217" y="-1039"/>
+        </scene>
+        <!--Home-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
                 <viewController id="9pv-A4-QxB" customClass="FirstViewController" customModule="GameFinder" customModuleProvider="target" sceneMemberID="viewController">
@@ -33,77 +49,70 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="First" image="add-" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" id="acW-dT-cKf"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="-320"/>
+            <point key="canvasLocation" x="749" y="-352"/>
         </scene>
-        <!--Third-->
-        <scene sceneID="Q2F-iq-0cq">
+        <!--View Events-->
+        <scene sceneID="giR-Iw-aHp">
             <objects>
-                <viewController id="dHY-fl-lxu" customClass="ThirdViewController" customModule="GameFinder" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ct9-BS-Jjq">
+                <tableViewController id="Cwt-2y-djr" customClass="ThirdViewController" customModule="GameFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="frE-2q-f1L">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Third View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O9j-mI-MDm">
-                                <rect key="frame" x="151" y="375" width="141" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="Ds5-4t-Z8x"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Third" image="profile-" id="1k3-8M-f6l"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YCE-Z3-rnF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="cell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="OfN-3L-QQS" rowHeight="75" style="IBUITableViewCellStyleDefault" id="ZPo-2e-Bub">
+                                <rect key="frame" x="0.0" y="28" width="414" height="75"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZPo-2e-Bub" id="Rt2-zX-OkF">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OfN-3L-QQS">
+                                            <rect key="frame" x="20" y="0.0" width="374" height="75"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="Cwt-2y-djr" id="7wl-Z5-2SO"/>
+                            <outlet property="delegate" destination="Cwt-2y-djr" id="wdy-eV-5db"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="View Events" image="doc.text.magnifyingglass" catalog="system" id="YCh-Ck-jHi"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gnO-8h-w4N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1621" y="-418"/>
+            <point key="canvasLocation" x="1618.840579710145" y="-352.23214285714283"/>
         </scene>
-        <!--Second-->
+        <!--Create Event-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModule="GameFinder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
-                                <rect key="frame" x="106" y="426.5" width="202" height="43"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDk-cv-Gan">
-                                <rect key="frame" x="99.5" y="477.5" width="215" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="top" secondItem="zEq-FU-wV5" secondAttribute="bottom" constant="8" symbolic="YES" id="Day-4N-Vmt"/>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="JgO-Fn-dHn"/>
-                            <constraint firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="qqM-NS-xev"/>
-                            <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Second" image="alert-" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Create Event" image="square.and.pencil" catalog="system" id="cPa-gy-q4n"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="360"/>
+            <point key="canvasLocation" x="748" y="477"/>
         </scene>
-        <!--Fourth-->
+        <!--Calendar-->
         <scene sceneID="7C1-NC-8yL">
             <objects>
-                <viewController id="pyN-xI-wgQ" customClass="FourthViewController" customModule="GameFinder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="4view" id="pyN-xI-wgQ" customClass="FourthViewController" customModule="GameFinder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="e3N-E6-iGA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -188,7 +197,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O3p-oF-62M"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Fourth" image="profile-" id="7rv-bg-8ws"/>
+                    <tabBarItem key="tabBarItem" title="Calendar" image="calendar" catalog="system" id="7rv-bg-8ws"/>
                     <connections>
                         <outlet property="calendarView" destination="Xhz-uM-olX" id="sSu-cw-5R0"/>
                     </connections>
@@ -210,8 +219,8 @@
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
-                        <segue destination="dHY-fl-lxu" kind="relationship" relationship="viewControllers" id="4T7-ib-YPX"/>
-                        <segue destination="pyN-xI-wgQ" kind="relationship" relationship="viewControllers" id="0aH-wn-hhU"/>
+                        <segue destination="Cwt-2y-djr" kind="relationship" relationship="viewControllers" id="4hb-rp-7x4"/>
+                        <segue destination="pyN-xI-wgQ" kind="relationship" relationship="viewControllers" id="Uy2-p4-7uA"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -236,11 +245,30 @@
             </objects>
             <point key="canvasLocation" x="-2645" y="0.0"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="tLF-63-dcf">
+            <objects>
+                <navigationController storyboardIdentifier="econtroller" automaticallyAdjustsScrollViewInsets="NO" id="SJK-gV-Shh" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EkP-4u-8iZ">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Sc9-D2-27b" kind="relationship" relationship="rootViewController" id="mD1-ee-ICN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OWa-k2-ar6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-726" y="-1039"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="add-" width="20.5" height="20.5"/>
-        <image name="alert-" width="17.5" height="19"/>
-        <image name="profile-" width="19" height="19"/>
+        <image name="calendar" catalog="system" width="64" height="54"/>
+        <image name="doc.text.magnifyingglass" catalog="system" width="56" height="64"/>
+        <image name="house" catalog="system" width="64" height="54"/>
+        <image name="square.and.pencil" catalog="system" width="64" height="58"/>
     </resources>
     <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
