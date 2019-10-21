@@ -76,19 +76,19 @@ PODS:
   - GoogleUtilities/UserDefaults (6.3.1):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.2)
-  - JTAppleCalendar (8.0.2)
   - leveldb-library (1.22)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - SimpleCheckbox (2.1.0)
 
 DEPENDENCIES:
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Database
-  - JTAppleCalendar
+  - SimpleCheckbox
 
 SPEC REPOS:
   trunk:
@@ -106,9 +106,9 @@ SPEC REPOS:
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
     - GTMSessionFetcher
-    - JTAppleCalendar
     - leveldb-library
     - nanopb
+    - SimpleCheckbox
 
 SPEC CHECKSUMS:
   Firebase: 2d750c54cda57d5a6ae31212cfe5cc813c6be7e4
@@ -125,10 +125,10 @@ SPEC CHECKSUMS:
   GoogleDataTransportCCTSupport: 9f352523e8785a71f6754f51eeff09f49ec19268
   GoogleUtilities: f895fde57977df4e0233edda0dbeac490e3703b6
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
-  JTAppleCalendar: bb3dd3752e2bcc85cb798ab763fbdd6e142715fc
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  SimpleCheckbox: ddcd433ab8c3a8f57300bebda13151a8f302c7f9
 
-PODFILE CHECKSUM: 79e1f231d20834b527a5de33494245f9c670239e
+PODFILE CHECKSUM: fe1cb0c05312e94cb0a87bbc98db3f31984602f5
 
 COCOAPODS: 1.8.3

@@ -7,113 +7,51 @@
 //
 
 import UIKit
-import JTAppleCalendar
+import SimpleCheckbox
+import Firebase
 
 class FourthViewController: UIViewController {
-    @IBOutlet var calendarView: JTACMonthView!
-    var calendarDataSource: [String:String] = [:]
-    var formatter = DateFormatter()
-    var selectedDate = ""
+    var subscriptions = [String: Bool]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.mainBlue()
-        tabBarItem.title = "Calendar"
-        calendarView.calendarDelegate = self
-        calendarView.calendarDataSource = self
-        calendarView.scrollDirection = .vertical
-        calendarView.scrollingMode   = .stopAtEachCalendarFrame
-        calendarView.showsHorizontalScrollIndicator = false
-        // Do any additional setup after loading the view.
+        let title = UILabel(frame: CGRect(x: 0, y: 100, width: 300, height: 30))
+        title.textAlignment = .center
+        title.text = "Subscriptions"
+        title.center.x = view.center.x
+        view.addSubview(title)
+        addCheckboxSubviews()
+    }
+    
+    func addCheckboxSubviews() {
+        let xLoc = 50
+        var yLoc = 160
+    
+        Database.database().reference().child("game_types").observeSingleEvent(of: .value, with: {
+            snapshot in
+            
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                let tickBox = Checkbox(frame: CGRect(x: xLoc, y: yLoc, width: 25, height: 25))
+                let label = UILabel(frame: CGRect(x: xLoc + 40, y: yLoc, width: 200, height: 21))
+                label.text = snap.value as! String?
+                self.subscriptions[snap.value as! String] = false
+                tickBox.accessibilityIdentifier = label.text
+                tickBox.borderStyle = .square
+                tickBox.checkmarkStyle = .tick
+                tickBox.checkmarkSize = 0.7
+                tickBox.addTarget(self, action: #selector(self.checkboxValueChanged(sender:)), for: .valueChanged)
+                self.view.addSubview(tickBox)
+                self.view.addSubview(label)
+                yLoc += 35
+            }
 
-        populateDataSource()
-        
-    }
-    
-    @objc func buttonClicked(sender: UIButton!) {
-        print(sender.currentTitle!)
-        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "econtroller") as! UINavigationController
-        UIApplication.shared.keyWindow?.rootViewController = viewController
-    }
-    
-    func configureCell(view: JTACDayCell?, cellState: CellState) {
-        guard let cell = view as? DateCell  else { return }
-        cell.dateLabel.text = cellState.text
-        cell.layer.borderWidth = 0.3
-        cell.layer.borderColor = UIColor.black.cgColor
-        handleCellTextColor(cell: cell, cellState: cellState)
-        handleCellEvents(cell: cell, cellState: cellState)
-        cell.dateButton.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
-        cell.dateButton.setTitle(cellState.date.description, for: UIControl.State.normal)
-        cell.dateButton.setTitleColor(UIColor.clear, for: UIControl.State.normal)
-    }
-
-    
-    func handleCellTextColor(cell: DateCell, cellState: CellState) {
-        if cellState.dateBelongsTo == .thisMonth {
-            cell.dateLabel.textColor = UIColor.black
-        } else {
-            cell.dateLabel.textColor = UIColor.gray
-        }
-    }
-    
-    func populateDataSource() {
-        // You can get the data from a server.
-        // Then convert that data into a form that can be used by the calendar.
-        calendarDataSource = [
-            "11-Oct-2019": "SomeData",
-            "10-Oct-2019": "SomeData",
-            "09-Oct-2019": "SomeData",
-        ]
-        // update the calendar
-        calendarView.reloadData()
-    }
-    
-    func handleCellEvents(cell: DateCell, cellState: CellState) {
-        let dateString = formatter.string(from: cellState.date)
-        if calendarDataSource[dateString] != nil {
-            cell.dateButton.isHidden = false
-        } else {
-            cell.dateButton.isHidden = true
-        }
-    }
-}
-
-extension FourthViewController: JTACMonthViewDataSource {
-    func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
-        formatter.dateFormat = "dd-MMM-yyyy"
-
-        let startDate = formatter.date(from: "01-aug-2019")!
-        let endDate = formatter.date(from: "01-aug-2020")!
-        return ConfigurationParameters(startDate: startDate, endDate: endDate)
-    }
-    
-}
-
-extension FourthViewController: JTACMonthViewDelegate {
-    func calendar(_ calendar: JTACMonthView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTACDayCell {
-        let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "dateCell", for: indexPath) as! DateCell
-        self.calendar(calendar, willDisplay: cell, forItemAt: date, cellState: cellState, indexPath: indexPath)
-        return cell
-    }
-    
-    func calendar(_ calendar: JTACMonthView, willDisplay cell: JTACDayCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
-        guard let cell = cell as? DateCell else { return }
-        configureCell(view: cell, cellState: cellState)
-    }
-    
-    func calendar(_ calendar: JTACMonthView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTACMonthReusableView {
-        let formatter = DateFormatter()  // Declare this outside, to avoid instancing this heavy class multiple times.
-        formatter.dateFormat = "MMM yyyy"
-        
-        let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "DateHeader", for: indexPath) as! DateHeader
-        header.monthTitle.text = formatter.string(from: range.start)
-        return header
+        })
     }
 
-    func calendarSizeForMonths(_ calendar: JTACMonthView?) -> MonthSize? {
-        return MonthSize(defaultSize: 50)
+    @objc func checkboxValueChanged(sender: Checkbox) {
+        subscriptions[sender.accessibilityIdentifier!] = sender.isChecked
+        print(subscriptions)
     }
 
 }

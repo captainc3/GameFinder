@@ -23,9 +23,7 @@
 		9251E983234525E700DFF651 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9251E982234525E700DFF651 /* ThirdViewController.swift */; };
 		9251E985234525F000DFF651 /* FourthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9251E984234525F000DFF651 /* FourthViewController.swift */; };
 		9251E9872345294500DFF651 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9251E9862345294500DFF651 /* CustomTabBarController.swift */; };
-		9313907C234A66FF008FBA2C /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313907B234A66FF008FBA2C /* DateCell.swift */; };
 		934A240E234AAF3200C63192 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 934A240D234AAF3200C63192 /* GoogleService-Info.plist */; };
-		93B8E409234A69C50007369D /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B8E408234A69C50007369D /* DateHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,9 +47,7 @@
 		9251E982234525E700DFF651 /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		9251E984234525F000DFF651 /* FourthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthViewController.swift; sourceTree = "<group>"; };
 		9251E9862345294500DFF651 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
-		9313907B234A66FF008FBA2C /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		934A240D234AAF3200C63192 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
-		93B8E408234A69C50007369D /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,8 +102,6 @@
 			children = (
 				934A240D234AAF3200C63192 /* GoogleService-Info.plist */,
 				9251E96C234525AF00DFF651 /* AppDelegate.swift */,
-				9313907B234A66FF008FBA2C /* DateCell.swift */,
-				93B8E408234A69C50007369D /* DateHeader.swift */,
 				9251E96E234525AF00DFF651 /* SceneDelegate.swift */,
 				9251E970234525AF00DFF651 /* FirstViewController.swift */,
 				9251E972234525AF00DFF651 /* SecondViewController.swift */,
@@ -257,14 +251,12 @@
 				9251E973234525AF00DFF651 /* SecondViewController.swift in Sources */,
 				92258494235CED640027CEAF /* GroupedSection.swift in Sources */,
 				1F625CC6234AE79B006D7ED2 /* EventController.swift in Sources */,
-				93B8E409234A69C50007369D /* DateHeader.swift in Sources */,
 				9251E971234525AF00DFF651 /* FirstViewController.swift in Sources */,
 				1FF502492347F6E00008E0C1 /* Extensions.swift in Sources */,
 				9251E983234525E700DFF651 /* ThirdViewController.swift in Sources */,
 				1FF502452347F51A0008E0C1 /* LoginController.swift in Sources */,
 				9251E96D234525AF00DFF651 /* AppDelegate.swift in Sources */,
 				9251E96F234525AF00DFF651 /* SceneDelegate.swift in Sources */,
-				9313907C234A66FF008FBA2C /* DateCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,13 +402,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 565X35DB52;
+				DEVELOPMENT_TEAM = 87P2FFC756;
 				INFOPLIST_FILE = GameFinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Team-WPSX.GameFinder";
+				PRODUCT_BUNDLE_IDENTIFIER = TeamWPSX.GameFinder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -429,13 +421,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 565X35DB52;
+				DEVELOPMENT_TEAM = 87P2FFC756;
 				INFOPLIST_FILE = GameFinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Team-WPSX.GameFinder";
+				PRODUCT_BUNDLE_IDENTIFIER = TeamWPSX.GameFinder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
