@@ -9,6 +9,6 @@ target 'GameFinder' do
 	pod 'Firebase/Analytics'
 	pod 'Firebase/Database'
 	pod 'Firebase/Auth'
-	pod 'JTAppleCalendar'
+	pod 'SimpleCheckbox'
 
 end
