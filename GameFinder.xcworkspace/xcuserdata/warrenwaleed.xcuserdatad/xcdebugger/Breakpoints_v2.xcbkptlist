@@ -14,10 +14,10 @@
             filePath = "GameFinder/SecondViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "SecondViewController"
-            landmarkType = "3">
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "nameTextField"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
