@@ -10,9 +10,33 @@ import UIKit
 import Firebase
 
 
-class SecondViewController: UIViewController, UITextFieldDelegate {
+class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UIPickerViewDataSource{
     
     var datePicker: UIDatePicker?
+    
+    var eventPickerView: UIPickerView?
+    
+    let eventPickerData : [String] = ["Event1", "Event2","Event3", "Event4" ]
+    
+    var data = [String]()
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return data.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return data[row]
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        skillTextField.text = eventPickerData[row]
+    }
+
+
     
     // MARK: - Properties
     
@@ -123,6 +147,16 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     
     @objc func handleCreateEvent() {
         print("in event handler")
+        
+        //PRINTS ALL EVENTS BEGIN
+        let fcmTokenRef = Database.database().reference()
+            fcmTokenRef.observe(.childAdded, with: { (snapshot) in
+            print(">>",snapshot)
+             guard let data = snapshot as? NSDictionary else {return}
+             var each_token = data["fcmToken"] as? String
+             print("all tokens: \(each_token!)")
+        })
+        //PRINTS ALL EVENTS END
         guard let name = nameTextField.text else { return }
         guard let time = timeTextField.text else { return }
         guard let location = locationTextField.text else { return }
@@ -193,10 +227,39 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         
         view.addSubview(skillContainerView)
         skillContainerView.anchor(top: locationContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 16, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+        //Skill Picker
+        eventPickerView = UIPickerView()
+        let eModel = eventPicker()
+        eModel.data = eventPickerData
+        eventPickerView?.dataSource = eModel
+        eModel.dataSource = eModel
+        eModel.delegate = eModel
+        skillTextField.inputView = eventPickerView
         
         view.addSubview(loginButton)
         loginButton.anchor(top: skillContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
         
     }
+}
+
+class eventPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate {
+
+    var data = [String]()
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return data.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return data[row]
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    }
+
 }
 
