@@ -119,8 +119,21 @@ class SignUpController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self
         usernameTextField.delegate = self
         lnameTextField.delegate = self
-        
+        assignbackground()
         // Do any additional setup after loading the view.
+    }
+    
+    func assignbackground(){
+        let background = UIImage(named: "IMG")
+
+        var imageView : UIImageView!
+        imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode =  UIView.ContentMode.scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        view.addSubview(imageView)
+        self.view.sendSubviewToBack(imageView)
     }
     
     // MARK: - Selectors
@@ -175,8 +188,7 @@ class SignUpController: UIViewController, UITextFieldDelegate {
     // MARK: - Helper Functions
     
     func configureViewComponents() {
-        view.backgroundColor = UIColor.mainBlue()
-        //UIview.backgroundView = UIImageView(image: UIImage(named: "IMG"))
+        //view.backgroundColor = UIColor.mainBlue()
         navigationController?.navigationBar.isHidden = true
         
         view.addSubview(logoImageView)
