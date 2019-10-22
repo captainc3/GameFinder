@@ -23,6 +23,7 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
         title.center.x = view.center.x
         view.addSubview(title)
         addCheckboxSubviews()
+        authenticateUserAndConfigureView()
     }
     
     func addCheckboxSubviews() {
@@ -228,7 +229,7 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Helper Functions
     
     func configureViewComponents() {
-        view.backgroundColor = UIColor.mainBlue()
+        //view.backgroundColor = UIColor.mainBlue()
         
         tabBarItem.title = "Home"
         
@@ -236,8 +237,7 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
         dontHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 32, paddingBottom: 12, paddingRight: 32, width: 0, height: 200)
         
         view.addSubview(welcomeLabel)
-        welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        welcomeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        welcomeLabel.anchor(top: nil, left: view.leftAnchor, bottom: dontHaveAccountButton.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 90, paddingBottom: 100, paddingRight: 32, width: 0, height: 200)
     }
     
 }

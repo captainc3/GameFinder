@@ -130,8 +130,9 @@ class SignUpController: UIViewController, UITextFieldDelegate {
         guard let password = passwordTextField.text else { return }
         guard let username = usernameTextField.text else { return }
         guard let lname = lnameTextField.text else { return }
+        let subscriptions = "none"
         
-        createUser(withEmail: email, password: password, username: username, lname: lname)
+        createUser(withEmail: email, password: password, username: username, lname: lname, subscriptions: subscriptions)
     }
     
     @objc func handleShowLogin() {
@@ -140,7 +141,7 @@ class SignUpController: UIViewController, UITextFieldDelegate {
     
     // MARK: - API
     
-    func createUser(withEmail email: String, password: String, username: String, lname: String) {
+    func createUser(withEmail email: String, password: String, username: String, lname: String, subscriptions: String) {
         
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             
@@ -152,7 +153,7 @@ class SignUpController: UIViewController, UITextFieldDelegate {
             
             guard let uid = result?.user.uid else { return }
             
-            let values = ["email": email, "username": username + " " + lname.prefix(1)]
+            let values = ["email": email, "username": username + " " + lname.prefix(1), "subscriptions": subscriptions]
             
             Database.database().reference().child("users").child(uid).updateChildValues(values, withCompletionBlock: { (error, ref) in
                 if let error = error {
@@ -160,10 +161,10 @@ class SignUpController: UIViewController, UITextFieldDelegate {
                     return
                 }
                 
+//               self.navigationController?.popViewController(animated: true)
                 self.navigationController?.pushViewController(SubscriptionsController(), animated: true)
                 print("In Subscription controller!!!")
                 
-            //self.navigationController?.popViewController(animated: true)
                 print("Succesfully signed user up..")
             })
             
