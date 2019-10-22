@@ -39,7 +39,7 @@
             </objects>
             <point key="canvasLocation" x="217" y="-1039"/>
         </scene>
-        <!--Home-->
+        <!--Upcoming Events-->
         <scene sceneID="giR-Iw-aHp">
             <objects>
                 <tableViewController id="Cwt-2y-djr" customClass="ThirdViewController" customModule="GameFinder" customModuleProvider="target" sceneMemberID="viewController">
@@ -72,7 +72,7 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" id="YCh-Ck-jHi"/>
-                    <navigationItem key="navigationItem" id="o32-ut-8Su"/>
+                    <navigationItem key="navigationItem" title="Upcoming Events" largeTitleDisplayMode="always" id="o32-ut-8Su"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gnO-8h-w4N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -131,6 +131,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yBo-zV-Vhr">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="Cwt-2y-djr" kind="relationship" relationship="rootViewController" id="7M1-QW-JYK"/>
@@ -225,5 +229,5 @@
         <image name="profile-" width="19" height="19"/>
         <image name="square.and.pencil" catalog="system" width="64" height="58"/>
     </resources>
-    <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+    <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

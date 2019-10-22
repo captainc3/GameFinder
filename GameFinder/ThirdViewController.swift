@@ -97,6 +97,8 @@ class ThirdViewController: UITableViewController {
         let headline = section.rows[indexPath.row]
         cell.textLabel?.text = headline.title + " | " + df.string(from: headline.date)
         cell.detailTextLabel?.text = headline.location
+        tableView.backgroundView = UIImageView(image: UIImage(named: "IMG"))
+        cell.backgroundColor = .clear
 
         return cell
     }
