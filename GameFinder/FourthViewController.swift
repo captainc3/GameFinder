@@ -10,23 +10,25 @@ import UIKit
 import SimpleCheckbox
 import Firebase
 
-class FourthViewController: UIViewController {
+class FourthViewController: UIViewController, UITextFieldDelegate {
     var subscriptions = [String: Bool]()
+    var checkboxes = [String: Checkbox]()
+    var requestGameText : UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let title = UILabel(frame: CGRect(x: 0, y: 100, width: 300, height: 30))
+        let title = UILabel(frame: CGRect(x: 0, y: 50, width: 300, height: 30))
         title.textAlignment = .center
         title.text = "Subscriptions"
         title.center.x = view.center.x
         view.addSubview(title)
         addCheckboxSubviews()
-        authenticateUserAndConfigureView()
     }
     
     func addCheckboxSubviews() {
         let xLoc = 50
-        var yLoc = 160
+        var yLoc = 100
+        guard let uid = Auth.auth().currentUser?.uid else { return }
     
         Database.database().reference().child("game_types").observeSingleEvent(of: .value, with: {
             snapshot in
@@ -36,7 +38,7 @@ class FourthViewController: UIViewController {
                 let tickBox = Checkbox(frame: CGRect(x: xLoc, y: yLoc, width: 25, height: 25))
                 let label = UILabel(frame: CGRect(x: xLoc + 40, y: yLoc, width: 200, height: 21))
                 label.text = snap.value as! String?
-                self.subscriptions[snap.value as! String] = false
+                self.checkboxes[label.text!] = tickBox
                 tickBox.accessibilityIdentifier = label.text
                 tickBox.borderStyle = .square
                 tickBox.checkmarkStyle = .tick
@@ -44,18 +46,109 @@ class FourthViewController: UIViewController {
                 tickBox.addTarget(self, action: #selector(self.checkboxValueChanged(sender:)), for: .valueChanged)
                 self.view.addSubview(tickBox)
                 self.view.addSubview(label)
-                yLoc += 35
+                yLoc = yLoc + 35
             }
 
         })
+        let submitButton = UIButton(frame: CGRect(x: xLoc + 100, y: yLoc + 315, width: 100, height: 25))
+        submitButton.backgroundColor = .blue
+        submitButton.center.x = self.view.center.x
+        submitButton.setTitle("Submit", for: .normal)
+        submitButton.showsTouchWhenHighlighted = true
+        submitButton.addTarget(self, action: #selector(updateSubscriptions), for: .touchUpInside)
+        self.view.addSubview(submitButton)
+        Database.database().reference().child("users").child(uid).child("subscriptions").observeSingleEvent(of: .value, with: {
+            snapshot in
+                for child in snapshot.children {
+                    let snap = child as! DataSnapshot
+                    let text = snap.key
+                    self.checkboxes[text]?.isChecked = true
+                    self.subscriptions[text] = true
+                }
+        })
+        let requestGameLabel = UILabel(frame: CGRect(x: 50, y: yLoc + 360, width: 300, height: 30))
+        requestGameLabel.text = "Request an Activity:"
+        self.view.addSubview(requestGameLabel)
+        requestGameText = UITextField(frame: CGRect(x: 50, y: yLoc + 400, width: 300, height: 30))
+        requestGameText.borderStyle = UITextField.BorderStyle.roundedRect
+        requestGameText.autocorrectionType = UITextAutocorrectionType.no
+        requestGameText.keyboardType = UIKeyboardType.default
+        requestGameText.returnKeyType = UIReturnKeyType.done
+        requestGameText.clearButtonMode = UITextField.ViewMode.whileEditing
+        requestGameText.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+        requestGameText.placeholder = "Enter an acitivity"
+        self.requestGameText.delegate = self
+        self.view.addSubview(requestGameText)
+        let gameSubmitButton = UIButton(frame: CGRect(x: xLoc + 100, y: yLoc + 450, width: 100, height: 25))
+        gameSubmitButton.backgroundColor = .blue
+        gameSubmitButton.center.x = self.view.center.x
+        gameSubmitButton.setTitle("Request", for: .normal)
+        gameSubmitButton.showsTouchWhenHighlighted = true
+        gameSubmitButton.addTarget(self, action: #selector(requestGame), for: .touchUpInside)
+        self.view.addSubview(gameSubmitButton)
+    }
+    
+    @objc func requestGame(sender: UIButton!) {
+        let input = self.requestGameText.text!
+        Database.database().reference().child("requested_games").updateChildValues([input: input])
+        let alert = UIAlertController(title: "Requested Game", message: "Your activity has been requested, and will be reviewed.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { action in
+            self.requestGameText.text = ""
+        }))
+        self.present(alert, animated: true)
+    }
+    
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.requestGameText.endEditing(true)
+        return false
     }
 
     @objc func checkboxValueChanged(sender: Checkbox) {
-        subscriptions[sender.accessibilityIdentifier!] = sender.isChecked
-        print(subscriptions)
+        if (sender.isChecked) {
+            subscriptions[sender.accessibilityIdentifier!] = true
+        } else {
+            subscriptions.removeValue(forKey: sender.accessibilityIdentifier!)
+        }
     }
     
-    // MARK: - Properties
+    @objc func updateSubscriptions(sender: UIButton!) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        var children = [String]()
+        
+        let alert = UIAlertController(title: "Update subscriptions?", message: "Are you sure you want to update your subscriptions?", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+            if (self.subscriptions.count > 0) {
+                Database.database().reference().child("users").child(uid).updateChildValues(["subscriptions": self.subscriptions])
+            } else {
+                Database.database().reference().child("users").child(uid).updateChildValues(["subscriptions": "none"])
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { action in
+            Database.database().reference().child("users").child(uid).child("subscriptions").observeSingleEvent(of: .value, with: {
+                snapshot in
+                    for child in snapshot.children {
+                        let snap = child as! DataSnapshot
+                        let text = snap.key
+                        children.append(text)
+                    }
+                for (key, _) in self.checkboxes {
+                    if (children.contains(key)) {
+                        self.checkboxes[key]?.isChecked = true
+                        self.subscriptions[key] = true
+                    } else {
+                        self.checkboxes[key]?.isChecked = false
+                    }
+                }
+            })
+        }))
+        self.present(alert, animated: true)
+    }
+
+    
+
     
     //Sign out Button
     let dontHaveAccountButton: UIButton = {
@@ -137,7 +230,7 @@ class FourthViewController: UIViewController {
     func configureViewComponents() {
         view.backgroundColor = UIColor.mainBlue()
         
-        tabBarItem.title = "Misc"
+        tabBarItem.title = "Home"
         
         view.addSubview(dontHaveAccountButton)
         dontHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 32, paddingBottom: 12, paddingRight: 32, width: 0, height: 200)
@@ -146,5 +239,6 @@ class FourthViewController: UIViewController {
         welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         welcomeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
-
+    
 }
+    // MARK: - Properties
