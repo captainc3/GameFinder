@@ -32,6 +32,10 @@ class ThirdViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.getData()
+        
+        let logo = UIImage(named: "GameFinder3.png")
+        let imageView = UIImageView(image:logo)
+        self.navigationItem.titleView = imageView
     }
     
     func getData() {

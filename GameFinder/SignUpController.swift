@@ -176,6 +176,7 @@ class SignUpController: UIViewController, UITextFieldDelegate {
     
     func configureViewComponents() {
         view.backgroundColor = UIColor.mainBlue()
+        //UIview.backgroundView = UIImageView(image: UIImage(named: "IMG"))
         navigationController?.navigationBar.isHidden = true
         
         view.addSubview(logoImageView)
