@@ -26,12 +26,10 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        if (pickerView == skillPicker) {
-//            return skillPickerData.count
-//        }
-//        return locationPickerData.count
-        
-        return skillPickerData.count
+        if (pickerView == skillPicker) {
+            return skillPickerData.count
+        }
+        return locationPickerData.count
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -48,6 +46,14 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             skillTextField.text = skillPickerData[row]
         } else if (pickerView == locationPicker) {
             locationTextField.text = locationPickerData[row]
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if (textField == skillTextField){
+            skillPicker.isHidden = true
+        } else if (textField == locationTextField) {
+            locationPicker.isHidden = true
         }
     }
     
@@ -165,7 +171,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         skillPicker.delegate = self
         skillPicker.dataSource = self
         skillPicker.isHidden = true
-        locationPickerData = ["Tech Green", "SAC Fields","Peters Parking Deck", "Burger Field" ]
+        locationPickerData = ["Tech Green", "SAC Fields","Peters Parking Deck", "Burger Field", "CRC" ]
         locationPicker.delegate = self
         locationPicker.dataSource = self
         locationPicker.isHidden = true
@@ -255,13 +261,9 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         
         view.addSubview(locationContainerView)
         locationContainerView.anchor(top: timeContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 16, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
-        //Location Picker
-        locationTextField.inputView = locationPicker
         
         view.addSubview(skillContainerView)
         skillContainerView.anchor(top: locationContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 16, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
-        //Skill Picker
-        skillTextField.inputView = skillPicker
         
         view.addSubview(loginButton)
         loginButton.anchor(top: skillContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
