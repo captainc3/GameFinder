@@ -35,6 +35,7 @@ class ThirdViewController: UITableViewController {
     }
     
     func getData() {
+        headlines.removeAll()
         Database.database().reference().child("events").observeSingleEvent(of: .value, with: {
             snapshot in
             
