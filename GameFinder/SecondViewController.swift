@@ -12,61 +12,15 @@ import Firebase
 
 class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
-    var datePicker: UIDatePicker?
+    //var datePicker: UIDatePicker?
     
+    @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBOutlet weak var locationPicker: UIPickerView!
     @IBOutlet weak var skillPicker: UIPickerView!
     var skillPickerData : [String] = [String]()
     var locationPickerData : [String] = [String]()
-    
 
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if (pickerView == skillPicker) {
-            return skillPickerData.count
-        }
-        return locationPickerData.count
-    }
-
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if (pickerView == skillPicker) {
-            return skillPickerData[row]
-        } else if (pickerView == locationPicker) {
-            return locationPickerData[row]
-        }
-        return ""
-    }
-
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if (pickerView == skillPicker) {
-            skillTextField.text = skillPickerData[row]
-        } else if (pickerView == locationPicker) {
-            locationTextField.text = locationPickerData[row]
-        }
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if (textField == skillTextField){
-            skillPicker.isHidden = true
-        } else if (textField == locationTextField) {
-            locationPicker.isHidden = true
-        }
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if (textField == skillTextField){
-            skillPicker.isHidden = false
-        } else if (textField == locationTextField) {
-            locationPicker.isHidden = false
-        }
-    }
-
-
-    
     // MARK: - Properties
     
     func showToast(message : String) {
@@ -175,6 +129,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         locationPicker.delegate = self
         locationPicker.dataSource = self
         locationPicker.isHidden = true
+        datePicker.isHidden = true
         
         
         // Do any additional setup after loading the view.
@@ -225,18 +180,64 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     }
     // MARK: - Helper Functions
     
-    @objc func dateChanged(datePicker: UIDatePicker) {
+    @IBAction func datePickerChanged(_ sender: Any) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "E, MMM d yyyy h:mm a"
-        timeTextField.text = dateFormatter.string(from: datePicker.date)
-        view.endEditing(true)
+
+        dateFormatter.dateStyle = DateFormatter.Style.short
+        dateFormatter.timeStyle = DateFormatter.Style.short
+
+        let strDate = dateFormatter.string(from: datePicker.date)
+        timeTextField.text = strDate
+    }
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if (pickerView == skillPicker) {
+            return skillPickerData.count
+        }
+        return locationPickerData.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if (pickerView == skillPicker) {
+            return skillPickerData[row]
+        } else if (pickerView == locationPicker) {
+            return locationPickerData[row]
+        }
+        return ""
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if (pickerView == skillPicker) {
+            skillTextField.text = skillPickerData[row]
+        } else if (pickerView == locationPicker) {
+            locationTextField.text = locationPickerData[row]
+        }
     }
     
-    @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer) {
-        view.endEditing(true)
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if (textField == skillTextField){
+            skillPicker.isHidden = true
+        } else if (textField == locationTextField) {
+            locationPicker.isHidden = true
+        } else if (textField == timeTextField) {
+            datePicker.isHidden = true
+        }
     }
     
-    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(SecondViewController.viewTapped(gestureRecognizer:)))
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if (textField == skillTextField){
+            skillPicker.isHidden = false
+        } else if (textField == locationTextField) {
+            locationPicker.isHidden = false
+        } else if (textField == timeTextField) {
+            datePicker.isHidden = false
+        }
+    }
+
     
     func configureViewComponents() {
         tabBarItem.title = "Create Event"
@@ -252,12 +253,6 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         
         view.addSubview(timeContainerView)
         timeContainerView.anchor(top: nameContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
-        //Date Picker
-        datePicker = UIDatePicker()
-        datePicker?.datePickerMode = .dateAndTime
-        datePicker?.addTarget(self, action: #selector(SecondViewController.dateChanged(datePicker:)), for: .valueChanged)
-        
-        timeTextField.inputView = datePicker
         
         view.addSubview(locationContainerView)
         locationContainerView.anchor(top: timeContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 16, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)

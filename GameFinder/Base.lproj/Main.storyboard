@@ -101,12 +101,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DSa-vj-AuG">
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="pCn-Ye-g7X">
+                                <rect key="frame" x="0.0" y="597" width="414" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="datePickerChanged:" destination="8rJ-Kc-sve" eventType="valueChanged" id="Pwy-M3-zuj"/>
+                                </connections>
+                            </datePicker>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="seW-4p-Ig6">
                                 <rect key="frame" x="0.0" y="597" width="414" height="216"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </pickerView>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="seW-4p-Ig6">
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DSa-vj-AuG">
                                 <rect key="frame" x="0.0" y="597" width="414" height="216"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -117,6 +125,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Create Event" image="square.and.pencil" catalog="system" id="cPa-gy-q4n"/>
                     <connections>
+                        <outlet property="datePicker" destination="pCn-Ye-g7X" id="afz-hQ-ejR"/>
                         <outlet property="locationPicker" destination="DSa-vj-AuG" id="1Ib-3b-oEn"/>
                         <outlet property="skillPicker" destination="seW-4p-Ig6" id="t4g-hd-ZBr"/>
                     </connections>
