@@ -77,7 +77,7 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
         requestGameText.returnKeyType = UIReturnKeyType.done
         requestGameText.clearButtonMode = UITextField.ViewMode.whileEditing
         requestGameText.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
-        requestGameText.placeholder = "Enter an acitivity"
+        requestGameText.placeholder = "Enter an activity"
         self.requestGameText.delegate = self
         self.view.addSubview(requestGameText)
         let gameSubmitButton = UIButton(frame: CGRect(x: xLoc + 100, y: yLoc + 450, width: 100, height: 25))
@@ -231,7 +231,7 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
     func configureViewComponents() {
         //view.backgroundColor = UIColor.mainBlue()
         
-        tabBarItem.title = "Home"
+        tabBarItem.title = "Misc"
         
         view.addSubview(dontHaveAccountButton)
         dontHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 32, paddingBottom: 12, paddingRight: 32, width: 0, height: 200)
