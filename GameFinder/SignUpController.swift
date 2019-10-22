@@ -160,8 +160,10 @@ class SignUpController: UIViewController, UITextFieldDelegate {
                     return
                 }
                 
-            self.navigationController?.popViewController(animated: true)
+                self.navigationController?.pushViewController(SubscriptionsController(), animated: true)
+                print("In Subscription controller!!!")
                 
+            //self.navigationController?.popViewController(animated: true)
                 print("Succesfully signed user up..")
             })
             

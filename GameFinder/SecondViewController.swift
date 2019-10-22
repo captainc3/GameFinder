@@ -121,7 +121,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         locationTextField.delegate = self
         timeTextField.delegate = self
         skillTextField.delegate = self
-        skillPickerData = ["Casual", "Moderate","Advanced", "Expert" ]
+        skillPickerData = ["Casual", "Moderate","Advanced"]
         skillPicker.delegate = self
         skillPicker.dataSource = self
         skillPicker.isHidden = true
