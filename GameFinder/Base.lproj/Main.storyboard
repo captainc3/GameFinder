@@ -39,7 +39,7 @@
             </objects>
             <point key="canvasLocation" x="217" y="-1039"/>
         </scene>
-        <!--View Events-->
+        <!--Home-->
         <scene sceneID="giR-Iw-aHp">
             <objects>
                 <tableViewController id="Cwt-2y-djr" customClass="ThirdViewController" customModule="GameFinder" customModuleProvider="target" sceneMemberID="viewController">
@@ -71,7 +71,7 @@
                             <outlet property="delegate" destination="Cwt-2y-djr" id="wdy-eV-5db"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="View Events" image="doc.text.magnifyingglass" catalog="system" id="YCh-Ck-jHi"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" id="YCh-Ck-jHi"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gnO-8h-w4N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -109,7 +109,7 @@
             </objects>
             <point key="canvasLocation" x="1419" y="58"/>
         </scene>
-        <!--Subscriptions-->
+        <!--Misc-->
         <scene sceneID="7C1-NC-8yL">
             <objects>
                 <viewController storyboardIdentifier="4view" id="pyN-xI-wgQ" customClass="FourthViewController" customModule="GameFinder" customModuleProvider="target" sceneMemberID="viewController">
@@ -119,7 +119,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="1Xi-Hk-4Fb"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Subscriptions" image="doc.text" catalog="system" id="7rv-bg-8ws" userLabel="Subscriptions"/>
+                    <tabBarItem key="tabBarItem" title="Misc" image="profile-" id="7rv-bg-8ws" userLabel="Subscriptions"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bR-jh-hiw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -183,8 +183,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="doc.text" catalog="system" width="56" height="64"/>
-        <image name="doc.text.magnifyingglass" catalog="system" width="56" height="64"/>
+        <image name="house" catalog="system" width="64" height="54"/>
+        <image name="profile-" width="19" height="19"/>
         <image name="square.and.pencil" catalog="system" width="64" height="58"/>
     </resources>
     <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
