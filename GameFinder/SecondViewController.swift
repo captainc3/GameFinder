@@ -16,6 +16,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     
     @IBOutlet weak var datePicker: UIDatePicker!
     
+    
     @IBOutlet weak var locationPicker: UIPickerView!
     @IBOutlet weak var skillPicker: UIPickerView!
     var skillPickerData : [String] = [String]()
@@ -181,14 +182,15 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     // MARK: - Helper Functions
     
     @IBAction func datePickerChanged(_ sender: Any) {
+        
         let dateFormatter = DateFormatter()
-
-        dateFormatter.dateStyle = DateFormatter.Style.short
-        dateFormatter.timeStyle = DateFormatter.Style.short
-
+        
+        dateFormatter.dateFormat = "E, MMM d yyyy h:mm a"
+//        datePicker.minimumDate = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .MediumStyle, timeStyle: .ShortStyle)
         let strDate = dateFormatter.string(from: datePicker.date)
         timeTextField.text = strDate
     }
+    
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -250,6 +252,8 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         
         view.addSubview(nameContainerView)
         nameContainerView.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+        
+        nameTextField.returnKeyType = UIReturnKeyType.done
         
         view.addSubview(timeContainerView)
         timeContainerView.anchor(top: nameContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
