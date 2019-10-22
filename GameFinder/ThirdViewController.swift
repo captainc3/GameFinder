@@ -1,11 +1,11 @@
 import UIKit
+import Firebase
 
 struct Headline {
-    var id : Int
     var date : Date
     var title : String
-    var text : String
-    var image : String
+    var location : String
+    var skill : String
 }
 
 private func firstDayOfMonth(date: Date) -> Date {
@@ -16,18 +16,14 @@ private func firstDayOfMonth(date: Date) -> Date {
 
 private func parseDate(_ str : String) -> Date {
     let dateFormat = DateFormatter()
-    dateFormat.dateFormat = "yyyy-MM-dd"
+    dateFormat.dateFormat = "MMM d yyyy"
     return dateFormat.date(from: str)!
 }
 
-class ThirdViewController: UITableViewController {
+var headlines = [Headline]()
 
-    var headlines = [
-        Headline(id: 1, date: parseDate("2018-05-15"), title: "Proin suscipit maximus", text: "Quisque ultrices odio in neque eleifend eleifend. Praesent tincidunt euismod sem, et rhoncus lorem facilisis eget.", image: "Blueberry"),
-        Headline(id: 2, date: parseDate("2018-02-15"), title: "In ac ante sapien", text: "Aliquam egestas ultricies dapibus. Nam molestie nunc in ipsum vehicula accumsan quis sit amet quam. Sed vel feugiat eros.", image: "Cantaloupe"),
-        Headline(id: 3, date: parseDate("2018-03-05"), title: "Lorem Ipsum", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ornare tortor, quis dictum enim. Morbi convallis tincidunt quam eget bibendum. Suspendisse malesuada maximus ante, at molestie massa fringilla id.", image: "Apple"),
-        Headline(id: 4, date: parseDate("2018-02-10"), title: "Aenean condimentum", text: "Ut eget massa erat. Morbi mauris diam, vulputate at luctus non, finibus et diam. Morbi et felis a lacus pharetra blandit.", image: "Banana"),
-    ]
+class ThirdViewController: UITableViewController {
+    var count = 0
 
     var sections = [GroupedSection<Date, Headline>]()
 
@@ -35,10 +31,41 @@ class ThirdViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.sections = GroupedSection.group(rows: self.headlines, by: { firstDayOfMonth(date: $0.date) })
-        self.sections.sort { lhs, rhs in lhs.sectionItem < rhs.sectionItem }
-
+        self.getData()
+    }
+    
+    func getData() {
+        Database.database().reference().child("events").observeSingleEvent(of: .value, with: {
+            snapshot in
+            
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                let delimiter = " Created"
+                let eventTitle = snap.key.components(separatedBy: delimiter)[0]
+                var eventLoc = ""
+                var eventSkill = ""
+                var eventDate = Date()
+                let innerChildren = snap.value as? NSDictionary
+                for x in innerChildren! {
+                    if (x.key as! String == "Location of event") {
+                        eventLoc = x.value as! String
+                    }
+                    if (x.key as! String == "Skill") {
+                        eventSkill = x.value as! String
+                    }
+                    if (x.key as! String == "Time of event") {
+                        let delimiter = " "
+                        let dateString = Array((x.value as! String).components(separatedBy: delimiter).dropFirst().dropLast().dropLast())
+                        eventDate = parseDate(dateString.joined(separator: " "))
+                    }
+                }
+                headlines.append(Headline(date: eventDate, title: eventTitle, location: eventLoc, skill: eventSkill))
+            }
+            headlines.sort { $0.date < $1.date }
+            self.sections = GroupedSection.group(rows: headlines, by: { firstDayOfMonth(date: $0.date) })
+            self.sections.sort { lhs, rhs in lhs.sectionItem < rhs.sectionItem }
+            self.tableView.reloadData()
+        })
     }
 
     // MARK: - UITableViewDataSource
@@ -51,7 +78,7 @@ class ThirdViewController: UITableViewController {
         let section = self.sections[section]
         let date = section.sectionItem
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM yyyy"
+        dateFormatter.dateFormat = "MMM yyyy"
         return dateFormatter.string(from: date)
     }
 
@@ -62,12 +89,13 @@ class ThirdViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let df = DateFormatter()
+        df.dateFormat = "MMM d yyyy"
 
         let section = self.sections[indexPath.section]
         let headline = section.rows[indexPath.row]
-        cell.textLabel?.text = headline.title
-        cell.detailTextLabel?.text = headline.text
-        cell.imageView?.image = UIImage(named: headline.image)
+        cell.textLabel?.text = headline.title + " | " + df.string(from: headline.date)
+        cell.detailTextLabel?.text = headline.location
 
         return cell
     }
