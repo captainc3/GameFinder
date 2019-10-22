@@ -108,9 +108,9 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate method
         nameTextField.resignFirstResponder()
-        locationTextField.resignFirstResponder()
-        timeTextField.resignFirstResponder()
-        skillTextField.resignFirstResponder()
+        //locationTextField.resignFirstResponder()
+        //timeTextField.resignFirstResponder()
+        //skillTextField.resignFirstResponder()
         return true
     }
 
@@ -254,11 +254,17 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         view.addSubview(timeContainerView)
         timeContainerView.anchor(top: nameContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
         
+        timeTextField.inputView = UIView()
+        
         view.addSubview(locationContainerView)
         locationContainerView.anchor(top: timeContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 16, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
         
+        locationTextField.inputView = UIView()
+        
         view.addSubview(skillContainerView)
         skillContainerView.anchor(top: locationContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 16, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+        
+        skillTextField.inputView = UIView()
         
         view.addSubview(loginButton)
         loginButton.anchor(top: skillContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
