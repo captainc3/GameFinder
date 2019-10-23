@@ -65,12 +65,13 @@ class SubscriptionsController: UIViewController, UITextFieldDelegate {
             }
 
         })
-        let submitButton = UIButton(frame: CGRect(x: xLoc + 100, y: yLoc + 315, width: 100, height: 25))
-        submitButton.backgroundColor = .white
-        submitButton.setTitleColor(.gray, for: .normal)
+        let submitButton = UIButton(frame: CGRect(x: xLoc + 100, y: yLoc + 330, width: 350, height: 40))
+       submitButton.backgroundColor = .white
+        submitButton.setTitleColor(UIColor.mainBlue(), for: .normal)
         submitButton.center.x = self.view.center.x
-        submitButton.setTitle("Submit", for: .normal)
+        submitButton.setTitle("SUBMIT", for: .normal)
         submitButton.showsTouchWhenHighlighted = true
+        submitButton.layer.cornerRadius = 5
         submitButton.addTarget(self, action: #selector(updateSubscriptions), for: .touchUpInside)
         self.view.addSubview(submitButton)
         Database.database().reference().child("users").child(uid).child("subscriptions").observeSingleEvent(of: .value, with: {
