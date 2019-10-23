@@ -38,6 +38,7 @@ class ThirdViewController: UITableViewController {
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
         self.refreshControl?.addTarget(self, action: #selector(getData), for: UIControl.Event.valueChanged)
+        self.tableView.reloadData()
     }
     
     @objc func getData() {
