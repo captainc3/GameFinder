@@ -32,7 +32,7 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
     
     func addCheckboxSubviews() {
         let xLoc = 50
-        var yLoc = 100
+        var yLoc = 200
         guard let uid = Auth.auth().currentUser?.uid else { return }
     
         Database.database().reference().child("game_types").observeSingleEvent(of: .value, with: {
@@ -56,7 +56,8 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
 
         })
         let submitButton = UIButton(frame: CGRect(x: xLoc + 100, y: yLoc + 315, width: 100, height: 25))
-        submitButton.backgroundColor = .blue
+        submitButton.backgroundColor = .white
+        submitButton.setTitleColor(.gray, for: .normal)
         submitButton.center.x = self.view.center.x
         submitButton.setTitle("Submit", for: .normal)
         submitButton.showsTouchWhenHighlighted = true
@@ -85,7 +86,8 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
         self.requestGameText.delegate = self
         self.view.addSubview(requestGameText)
         let gameSubmitButton = UIButton(frame: CGRect(x: xLoc + 100, y: yLoc + 450, width: 100, height: 25))
-        gameSubmitButton.backgroundColor = .blue
+        gameSubmitButton.backgroundColor = .white
+        gameSubmitButton.setTitleColor(.gray, for: .normal)
         gameSubmitButton.center.x = self.view.center.x
         gameSubmitButton.setTitle("Request", for: .normal)
         gameSubmitButton.showsTouchWhenHighlighted = true
@@ -241,7 +243,7 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
         dontHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 32, paddingBottom: 12, paddingRight: 32, width: 0, height: 200)
         
         view.addSubview(welcomeLabel)
-        welcomeLabel.anchor(top: nil, left: view.leftAnchor, bottom: dontHaveAccountButton.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 90, paddingBottom: 100, paddingRight: 32, width: 0, height: 200)
+        welcomeLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 50, paddingLeft: 90, paddingBottom: 0, paddingRight: 32, width: 0, height: 200)
     }
     
 }
