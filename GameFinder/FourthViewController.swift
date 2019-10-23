@@ -32,7 +32,7 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
     
     func addCheckboxSubviews() {
         let xLoc = 50
-        var yLoc = 200
+        var yLoc = 165
         guard let uid = Auth.auth().currentUser?.uid else { return }
     
         Database.database().reference().child("game_types").observeSingleEvent(of: .value, with: {
@@ -55,12 +55,13 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
             }
 
         })
-        let submitButton = UIButton(frame: CGRect(x: xLoc + 100, y: yLoc + 315, width: 100, height: 25))
+        let submitButton = UIButton(frame: CGRect(x: xLoc + 100, y: yLoc + 320, width: 350, height: 40))
         submitButton.backgroundColor = .white
-        submitButton.setTitleColor(.gray, for: .normal)
+        submitButton.setTitleColor(UIColor.mainBlue(), for: .normal)
         submitButton.center.x = self.view.center.x
-        submitButton.setTitle("Submit", for: .normal)
+        submitButton.setTitle("SUBMIT", for: .normal)
         submitButton.showsTouchWhenHighlighted = true
+        submitButton.layer.cornerRadius = 5
         submitButton.addTarget(self, action: #selector(updateSubscriptions), for: .touchUpInside)
         self.view.addSubview(submitButton)
         Database.database().reference().child("users").child(uid).child("subscriptions").observeSingleEvent(of: .value, with: {
@@ -72,10 +73,10 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
                     self.subscriptions[text] = true
                 }
         })
-        let requestGameLabel = UILabel(frame: CGRect(x: 50, y: yLoc + 360, width: 300, height: 30))
+        let requestGameLabel = UILabel(frame: CGRect(x: 50, y: yLoc + 380, width: 300, height: 30))
         requestGameLabel.text = "Request an Activity:"
         self.view.addSubview(requestGameLabel)
-        requestGameText = UITextField(frame: CGRect(x: 50, y: yLoc + 400, width: 300, height: 30))
+        requestGameText = UITextField(frame: CGRect(x: 50, y: yLoc + 420, width: 315, height: 30))
         requestGameText.borderStyle = UITextField.BorderStyle.roundedRect
         requestGameText.autocorrectionType = UITextAutocorrectionType.no
         requestGameText.keyboardType = UIKeyboardType.default
@@ -85,11 +86,12 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
         requestGameText.placeholder = "Enter an activity"
         self.requestGameText.delegate = self
         self.view.addSubview(requestGameText)
-        let gameSubmitButton = UIButton(frame: CGRect(x: xLoc + 100, y: yLoc + 450, width: 100, height: 25))
+        let gameSubmitButton = UIButton(frame: CGRect(x: xLoc + 100, y: yLoc + 470, width: 350, height: 40))
         gameSubmitButton.backgroundColor = .white
-        gameSubmitButton.setTitleColor(.gray, for: .normal)
+        gameSubmitButton.setTitleColor(UIColor.mainBlue(), for: .normal)
         gameSubmitButton.center.x = self.view.center.x
-        gameSubmitButton.setTitle("Request", for: .normal)
+        gameSubmitButton.layer.cornerRadius = 5
+        gameSubmitButton.setTitle("REQUEST", for: .normal)
         gameSubmitButton.showsTouchWhenHighlighted = true
         gameSubmitButton.addTarget(self, action: #selector(requestGame), for: .touchUpInside)
         self.view.addSubview(gameSubmitButton)
@@ -243,7 +245,7 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
         dontHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 32, paddingBottom: 12, paddingRight: 32, width: 0, height: 200)
         
         view.addSubview(welcomeLabel)
-        welcomeLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 50, paddingLeft: 90, paddingBottom: 0, paddingRight: 32, width: 0, height: 200)
+        welcomeLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 25, paddingLeft: 90, paddingBottom: 0, paddingRight: 32, width: 0, height: 200)
     }
     
 }

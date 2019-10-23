@@ -42,7 +42,7 @@ class SubscriptionsController: UIViewController, UITextFieldDelegate {
     
     func addCheckboxSubviews() {
         let xLoc = 50
-        var yLoc = 100
+        var yLoc = 200
         guard let uid = Auth.auth().currentUser?.uid else { return }
     
         Database.database().reference().child("game_types").observeSingleEvent(of: .value, with: {
@@ -66,7 +66,8 @@ class SubscriptionsController: UIViewController, UITextFieldDelegate {
 
         })
         let submitButton = UIButton(frame: CGRect(x: xLoc + 100, y: yLoc + 315, width: 100, height: 25))
-        submitButton.backgroundColor = .blue
+        submitButton.backgroundColor = .white
+        submitButton.setTitleColor(.gray, for: .normal)
         submitButton.center.x = self.view.center.x
         submitButton.setTitle("Submit", for: .normal)
         submitButton.showsTouchWhenHighlighted = true
