@@ -45,13 +45,13 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         })
     }
     
-    let logoImageView: UIImageView = {
+    /*let logoImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
         iv.image = #imageLiteral(resourceName: "GameFinder1")
         return iv
-    }()
+    }()*/
     
     lazy var categoryContainerView: UIView = {
         let view = UIView()
@@ -279,14 +279,10 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     func configureViewComponents() {
         tabBarItem.title = "Create Event"
         view.backgroundColor = UIColor.mainBlue()
-        navigationController?.navigationBar.isHidden = true
-        
-        view.addSubview(logoImageView)
-        logoImageView.anchor(top: view.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 60, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 300, height: 175)
-        logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        navigationController?.navigationBar.isHidden = false
         
         view.addSubview(categoryContainerView)
-        categoryContainerView.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+        categoryContainerView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 40, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
         
         categoryTextField.inputView = UIView()
         
