@@ -186,7 +186,14 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         let dateFormatter = DateFormatter()
         
         dateFormatter.dateFormat = "E, MMM d yyyy h:mm a"
-//        datePicker.minimumDate = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+        let calendar = Calendar(identifier: .gregorian)
+        var comps = DateComponents()
+        comps.day = 2
+        let maxDate = calendar.date(byAdding: comps, to: Date())
+        comps.day = 0
+        let minDate = calendar.date(byAdding: comps, to: Date())
+        datePicker.maximumDate = maxDate
+        datePicker.minimumDate = minDate
         let strDate = dateFormatter.string(from: datePicker.date)
         timeTextField.text = strDate
     }
