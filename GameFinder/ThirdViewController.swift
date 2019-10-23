@@ -106,5 +106,14 @@ class ThirdViewController: UITableViewController {
 
         return cell
     }
-
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath: NSIndexPath) {
+        self.performSegue(withIdentifier: "ShowDetail", sender: self)
+    }
+    
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowDetail" {
+            //passing variables to dest controller
+        }
+    }
 }
