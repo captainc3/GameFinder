@@ -64,7 +64,11 @@ class ThirdViewController: UITableViewController {
                     if (x.key as! String == "Time of event") {
                         let delimiter = " "
                         let dateString = Array((x.value as! String).components(separatedBy: delimiter).dropFirst().dropLast().dropLast())
+                        //.dropFirst().dropLast().dropLast()
+                        //print(dateString)
                         eventDate = parseDate(dateString.joined(separator: " "))
+                        //print (dateString)
+                        //print(eventDate)
                     }
                 }
                 headlines.append(Headline(date: eventDate, title: eventTitle, location: eventLoc, skill: eventSkill))
@@ -99,11 +103,12 @@ class ThirdViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let df = DateFormatter()
-        df.dateFormat = "MMM d yyyy"
+        df.dateFormat = "E, MM/d/yy"
 
         let section = self.sections[indexPath.section]
         let headline = section.rows[indexPath.row]
         cell.textLabel?.text = headline.title + " | " + df.string(from: headline.date)
+
         cell.detailTextLabel?.text = headline.location
         tableView.backgroundView = UIImageView(image: UIImage(named: "IMG"))
         cell.backgroundColor = .clear
