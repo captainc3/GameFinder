@@ -40,7 +40,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
-        iv.image = #imageLiteral(resourceName: "firebase-logo")
+        iv.image = #imageLiteral(resourceName: "GameFinder1")
         return iv
     }()
     

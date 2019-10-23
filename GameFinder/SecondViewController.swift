@@ -132,6 +132,9 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         locationPicker.isHidden = true
         datePicker.isHidden = true
         
+        let logo = UIImage(named: "GameFinder3.png")
+        let imageView = UIImageView(image:logo)
+        self.navigationItem.titleView = imageView
         
         // Do any additional setup after loading the view.
     }

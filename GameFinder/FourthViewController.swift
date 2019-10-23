@@ -24,6 +24,10 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(title)
         addCheckboxSubviews()
         authenticateUserAndConfigureView()
+        
+        let logo = UIImage(named: "GameFinder3.png")
+        let imageView = UIImageView(image:logo)
+        self.navigationItem.titleView = imageView
     }
     
     func addCheckboxSubviews() {
