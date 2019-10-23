@@ -17,10 +17,12 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     @IBOutlet weak var datePicker: UIDatePicker!
     
     
+    @IBOutlet weak var categoryPicker: UIPickerView!
     @IBOutlet weak var locationPicker: UIPickerView!
     @IBOutlet weak var skillPicker: UIPickerView!
     var skillPickerData : [String] = [String]()
     var locationPickerData : [String] = [String]()
+    var categoryPickerData : [String] = [String]()
 
     // MARK: - Properties
     
@@ -51,6 +53,11 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         return iv
     }()
     
+    lazy var categoryContainerView: UIView = {
+        let view = UIView()
+        return view.textContainerView(view: view, #imageLiteral(resourceName: "add_white-"), categoryTextField)
+    }()
+    
     lazy var nameContainerView: UIView = {
         let view = UIView()
         return view.textContainerView(view: view, #imageLiteral(resourceName: "add-"), nameTextField)
@@ -69,6 +76,11 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     lazy var skillContainerView: UIView = {
         let view = UIView()
         return view.textContainerView(view: view, #imageLiteral(resourceName: "ic_person_outline_white_2x"), skillTextField)
+    }()
+    
+    lazy var categoryTextField: UITextField = {
+        let tf = UITextField()
+        return tf.textField(withPlaceolder: "Event Category", isSecureTextEntry: false)
     }()
     
     lazy var nameTextField: UITextField = {
@@ -109,15 +121,17 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate method
         nameTextField.resignFirstResponder()
-        //locationTextField.resignFirstResponder()
-        //timeTextField.resignFirstResponder()
-        //skillTextField.resignFirstResponder()
         return true
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewComponents()
+        categoryTextField.delegate = self
+        categoryPickerData = ["Basketball", "Board Games","Card Games", "Football", "Frisbee", "Local Video Games", "Ping Pong", "Racquetball", "Soccer"]
+        categoryPicker.delegate = self
+        categoryPicker.dataSource = self
+        categoryPicker.isHidden = true
         nameTextField.delegate = self
         locationTextField.delegate = self
         timeTextField.delegate = self
@@ -150,24 +164,25 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
              print("all tokens: \(each_token!)")
         })
         //PRINTS ALL EVENTS END
+        guard let category = categoryTextField.text else { return }
         guard let name = nameTextField.text else { return }
         guard let time = timeTextField.text else { return }
         guard let location = locationTextField.text else { return }
         guard let skill = skillTextField.text else { return }
-        createEvent(name: name, time: time, location: location, skill: skill)
+        createEvent(category: category, name: name, time: time, location: location, skill: skill)
         
     }
     
     
     // MARK: - API
     
-    func createEvent(name: String, time: String, location: String, skill: String) {
+    func createEvent(category: String, name: String, time: String, location: String, skill: String) {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
         Database.database().reference().child("users").child(uid).child("username").observeSingleEvent(of: .value) { (snapshot) in
             guard let username = snapshot.value as? String else { return }
             
-            let values = ["Skill": skill, "Time of event": time, "Location of event": location, "Creator": username]
+            let values = ["Category": category, "Skill": skill, "Time of event": time, "Location of event": location, "Creator": username]
             //EVENT CREATION IN DATABASE!!!!
              Database.database().reference().child("events").child(name + " Created by: " + username).updateChildValues(values, withCompletionBlock: { (error, ref) in
                  if let error = error {
@@ -188,9 +203,9 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         dateFormatter.dateFormat = "E, MMM d yyyy h:mm a"
         let calendar = Calendar(identifier: .gregorian)
         var comps = DateComponents()
-        comps.day = 2
+        comps.day = 2 //ONLY PICK DATE WITHIN 48 HOURS
         let maxDate = calendar.date(byAdding: comps, to: Date())
-        comps.day = 0
+        comps.day = 0 //TODAYs DATE
         let minDate = calendar.date(byAdding: comps, to: Date())
         datePicker.maximumDate = maxDate
         datePicker.minimumDate = minDate
@@ -206,6 +221,8 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if (pickerView == skillPicker) {
             return skillPickerData.count
+        } else if (pickerView == categoryPicker) {
+            return categoryPickerData.count
         }
         return locationPickerData.count
     }
@@ -215,6 +232,8 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             return skillPickerData[row]
         } else if (pickerView == locationPicker) {
             return locationPickerData[row]
+        } else if (pickerView == categoryPicker) {
+            return categoryPickerData[row]
         }
         return ""
     }
@@ -224,6 +243,8 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             skillTextField.text = skillPickerData[row]
         } else if (pickerView == locationPicker) {
             locationTextField.text = locationPickerData[row]
+        } else if (pickerView == categoryPicker) {
+            categoryTextField.text = categoryPickerData[row]
         }
     }
     
@@ -234,6 +255,8 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             locationPicker.isHidden = true
         } else if (textField == timeTextField) {
             datePicker.isHidden = true
+        } else if (textField == categoryTextField) {
+            categoryPicker.isHidden = true
         }
     }
     
@@ -244,6 +267,8 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             locationPicker.isHidden = false
         } else if (textField == timeTextField) {
             datePicker.isHidden = false
+        } else if (textField == categoryTextField) {
+            categoryPicker.isHidden = false
         }
     }
 
@@ -257,10 +282,16 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         logoImageView.anchor(top: view.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 60, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 300, height: 175)
         logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
+        view.addSubview(categoryContainerView)
+        categoryContainerView.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+        
+        categoryTextField.inputView = UIView()
+        
         view.addSubview(nameContainerView)
-        nameContainerView.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+        nameContainerView.anchor(top: categoryContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
         
         nameTextField.returnKeyType = UIReturnKeyType.done
+        nameTextField.clearButtonMode = UITextField.ViewMode.whileEditing
         
         view.addSubview(timeContainerView)
         timeContainerView.anchor(top: nameContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
