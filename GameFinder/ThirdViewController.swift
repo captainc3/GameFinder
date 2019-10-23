@@ -8,6 +8,7 @@ struct Headline {
     var skill : String
 }
 
+
 private func firstDayOfMonth(date: Date) -> Date {
     let calendar = Calendar.current
     let components = calendar.dateComponents([.year, .month], from: date)
@@ -36,9 +37,10 @@ class ThirdViewController: UITableViewController {
         let logo = UIImage(named: "GameFinder3.png")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
+        self.refreshControl?.addTarget(self, action: #selector(getData), for: UIControl.Event.valueChanged)
     }
     
-    func getData() {
+    @objc func getData() {
         headlines.removeAll()
         Database.database().reference().child("events").observeSingleEvent(of: .value, with: {
             snapshot in
@@ -70,6 +72,7 @@ class ThirdViewController: UITableViewController {
             self.sections = GroupedSection.group(rows: headlines, by: { firstDayOfMonth(date: $0.date) })
             self.sections.sort { lhs, rhs in lhs.sectionItem < rhs.sectionItem }
             self.tableView.reloadData()
+            self.refreshControl?.endRefreshing()
         })
     }
 
