@@ -172,7 +172,12 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         guard let time = timeTextField.text else { return }
         guard let location = locationTextField.text else { return }
         guard let skill = skillTextField.text else { return }
-        createEvent(category: category, name: name, time: time, location: location, skill: skill)
+        if ((category  == "") || (name  == "") || (time  == "") || (location  == "") || (skill  == "")) {
+            showToast(message: "Please fill in all required fields.")
+        } else {
+            createEvent(category: category, name: name, time: time, location: location, skill: skill)
+            showToast(message: "Succesfully Created an Event!")
+        }
         
     }
     
@@ -194,7 +199,6 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
                  }
              })
         }
-        showToast(message: "Successfully Created an Event!")
         
     }
     // MARK: - Helper Functions
