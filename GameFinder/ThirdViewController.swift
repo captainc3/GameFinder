@@ -25,7 +25,6 @@ var headlines = [Headline]()
 
 class ThirdViewController: UITableViewController {
     var count = 0
-
     var sections = [GroupedSection<Date, Headline>]()
 
     // MARK: - View Controller lifecycle
@@ -112,17 +111,23 @@ class ThirdViewController: UITableViewController {
         cell.detailTextLabel?.text = headline.location
         tableView.backgroundView = UIImageView(image: UIImage(named: "IMG"))
         cell.backgroundColor = .clear
+        
+        cell.textLabel?.textColor = UIColor.white
 
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "ShowDetail", sender: self)
     }
     
-    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowDetail" {
-            //passing variables to dest controller
+            if let indexPath = self.tableView.indexPathForSelectedRow {
+                let currentCell = self.tableView.cellForRow(at: indexPath)
+                let vc = segue.destination as! EventController
+                vc.cellDetails = currentCell?.textLabel!.text as! String
+            }
         }
     }
 }

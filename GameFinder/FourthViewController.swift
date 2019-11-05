@@ -43,6 +43,7 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
                 let tickBox = Checkbox(frame: CGRect(x: xLoc, y: yLoc, width: 25, height: 25))
                 let label = UILabel(frame: CGRect(x: xLoc + 40, y: yLoc, width: 200, height: 21))
                 label.text = snap.value as! String?
+                label.textColor = UIColor.white
                 self.checkboxes[label.text!] = tickBox
                 tickBox.accessibilityIdentifier = label.text
                 tickBox.borderStyle = .square
@@ -75,6 +76,7 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
         })
         let requestGameLabel = UILabel(frame: CGRect(x: 50, y: yLoc + 380, width: 300, height: 30))
         requestGameLabel.text = "Request an Activity:"
+        requestGameLabel.textColor = UIColor.white
         self.view.addSubview(requestGameLabel)
         requestGameText = UITextField(frame: CGRect(x: 50, y: yLoc + 420, width: 315, height: 30))
         requestGameText.borderStyle = UITextField.BorderStyle.roundedRect

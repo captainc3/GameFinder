@@ -60,7 +60,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     
     lazy var nameContainerView: UIView = {
         let view = UIView()
-        return view.textContainerView(view: view, #imageLiteral(resourceName: "add-"), nameTextField)
+        return view.textContainerView(view: view, #imageLiteral(resourceName: "add_white-"), nameTextField)
     }()
     
     lazy var timeContainerView: UIView = {

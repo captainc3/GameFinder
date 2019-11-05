@@ -13,6 +13,7 @@ import Firebase
 class EventController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Properties
+    var cellDetails:String = ""
     
     func showToast(message : String) {
 
@@ -73,6 +74,7 @@ class EventController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(cellDetails)
         configureViewComponents()
         
         // Do any additional setup after loading the view.
