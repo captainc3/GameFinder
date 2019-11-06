@@ -6,6 +6,7 @@ struct Headline {
     var title : String
     var location : String
     var skill : String
+    var creator : String
 }
 
 
@@ -52,6 +53,7 @@ class ThirdViewController: UITableViewController {
                 var eventLoc = ""
                 var eventSkill = ""
                 var eventDate = Date()
+                var eventCreator = ""
                 let innerChildren = snap.value as? NSDictionary
                 for x in innerChildren! {
                     if (x.key as! String == "Location of event") {
@@ -69,8 +71,11 @@ class ThirdViewController: UITableViewController {
                         //print (dateString)
                         //print(eventDate)
                     }
+                    if (x.key as! String == "Creator") {
+                        eventCreator = x.value as! String
+                    }
                 }
-                headlines.append(Headline(date: eventDate, title: eventTitle, location: eventLoc, skill: eventSkill))
+                headlines.append(Headline(date: eventDate, title: eventTitle, location: eventLoc, skill: eventSkill, creator: eventCreator))
             }
             headlines.sort { $0.date < $1.date }
             self.sections = GroupedSection.group(rows: headlines, by: { firstDayOfMonth(date: $0.date) })
@@ -124,9 +129,8 @@ class ThirdViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                let currentCell = self.tableView.cellForRow(at: indexPath)
                 let vc = segue.destination as! EventController
-                vc.cellDetails = currentCell?.textLabel!.text as! String
+                vc.cellDetails = headlines[indexPath.row].title + " Created by: " + headlines[indexPath.row].creator
             }
         }
     }

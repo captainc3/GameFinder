@@ -15,6 +15,7 @@ class EventController: UIViewController, UITextFieldDelegate {
     // MARK: - Properties
     var cellDetails:String = ""
     
+    
     func showToast(message : String) {
 
         let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 90, y: self.view.frame.size.height - 385, width: 180, height: 35))
@@ -51,7 +52,7 @@ class EventController: UIViewController, UITextFieldDelegate {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         button.setTitleColor(UIColor.mainBlue(), for: .normal)
         button.backgroundColor = .white
-        button.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
+        button.addTarget(self, action: #selector(joinEvent), for: .touchUpInside)
         button.layer.cornerRadius = 5
         return button
     }()
@@ -74,7 +75,6 @@ class EventController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(cellDetails)
         configureViewComponents()
         
         // Do any additional setup after loading the view.
@@ -82,8 +82,12 @@ class EventController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Selectors
     
-    @objc func handleSignUp() {
-        
+    @objc func joinEvent() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        Database.database().reference().child("users").child(uid).child("username").observeSingleEvent(of: .value) { (snapshot) in
+            guard let username = snapshot.value as? String else { return }
+            Database.database().reference().child("joined_events").child(self.cellDetails).setValue([username: uid])
+        }
     }
     
     @objc func handleShowLogin() {
