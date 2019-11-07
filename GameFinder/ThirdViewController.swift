@@ -22,6 +22,12 @@ private func parseDate(_ str : String) -> Date {
     return dateFormat.date(from: str)!
 }
 
+private func parseDateString(_ date : Date) -> String {
+    let dateFormat = DateFormatter()
+    dateFormat.dateFormat = "MMM d yyyy"
+    return dateFormat.string(from: date)
+}
+
 var headlines = [Headline]()
 
 class ThirdViewController: UITableViewController {
@@ -53,6 +59,7 @@ class ThirdViewController: UITableViewController {
                 var eventLoc = ""
                 var eventSkill = ""
                 var eventDate = Date()
+                var eventDateString = ""
                 var eventCreator = ""
                 let innerChildren = snap.value as? NSDictionary
                 for x in innerChildren! {
@@ -65,17 +72,20 @@ class ThirdViewController: UITableViewController {
                     if (x.key as! String == "Time of event") {
                         let delimiter = " "
                         let dateString = Array((x.value as! String).components(separatedBy: delimiter).dropFirst().dropLast().dropLast())
-                        //.dropFirst().dropLast().dropLast()
-                        //print(dateString)
                         eventDate = parseDate(dateString.joined(separator: " "))
-                        //print (dateString)
-                        //print(eventDate)
+                        eventDateString = dateString.joined(separator: " ")
                     }
                     if (x.key as! String == "Creator") {
                         eventCreator = x.value as! String
                     }
                 }
-                if (eventDate >= Date()) {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "MMM d yyyy"
+                let currentDateString = parseDateString(Date())
+                if (formatter.date(from: eventDateString)?.compare(formatter.date(from: currentDateString)!) == .orderedSame) {
+                    headlines.append(Headline(date: eventDate, title: eventTitle, location: eventLoc, skill: eventSkill,   creator: eventCreator))
+                }
+                if (formatter.date(from: eventDateString)?.compare(formatter.date(from: currentDateString)!) == .orderedDescending) {
                     headlines.append(Headline(date: eventDate, title: eventTitle, location: eventLoc, skill: eventSkill,   creator: eventCreator))
                 }
             }

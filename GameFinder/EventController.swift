@@ -133,7 +133,7 @@ class EventController: UIViewController, UITextFieldDelegate {
             let eventTitle = snapshot.key.components(separatedBy: delimiter)[0]
             var eventLoc = ""
             var eventSkill = ""
-            var eventDate = Date()
+            var eventDate = ""
             var eventCreator = ""
             var eventCategory = ""
             
@@ -150,21 +150,18 @@ class EventController: UIViewController, UITextFieldDelegate {
                 }
                 if (snap.key == "Time of event") {
                     let delimiter = " "
-                    let dateString = Array((snap.value as! String).components(separatedBy: delimiter).dropFirst().dropLast().dropLast())
-                    eventDate = (self.parseDate(dateString.joined(separator: " ")))
+                    let dateString = Array((snap.value as! String).components(separatedBy: delimiter))
+                    eventDate = dateString.joined(separator: " ")
                 }
                 if (snap.key == "Creator") {
                     eventCreator = "Event by: \(snap.value as! String)"
                 }
             }
-            let df = DateFormatter()
-            df.dateFormat = "E, MM/d/yy"
-            let eventDateString = "Date: \(df.string(from: eventDate))"
+            let eventDateString = "Date: \(eventDate)"
             let eventArray = [eventTitle, eventLoc, eventSkill, eventDateString, eventCategory, eventCreator]
-            let xLoc = 50
             var yLoc = 180
             for n in 0 ... 5 {
-                let label = UILabel(frame: CGRect(x: xLoc + 40, y: yLoc, width: 200, height: 21))
+                let label = UILabel(frame: CGRect(x: 40, y: yLoc, width: 350, height: 21))
                 label.text = eventArray[n]
                 label.textColor = UIColor.white
                 yLoc = yLoc + 35
