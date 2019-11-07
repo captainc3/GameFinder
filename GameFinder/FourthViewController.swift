@@ -241,7 +241,7 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
     func configureViewComponents() {
         //view.backgroundColor = UIColor.mainBlue()
         
-        tabBarItem.title = "Misc"
+        tabBarItem.title = "Profile"
         
         view.addSubview(dontHaveAccountButton)
         dontHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 32, paddingBottom: 12, paddingRight: 32, width: 0, height: 200)
