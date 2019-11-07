@@ -75,7 +75,9 @@ class ThirdViewController: UITableViewController {
                         eventCreator = x.value as! String
                     }
                 }
-                headlines.append(Headline(date: eventDate, title: eventTitle, location: eventLoc, skill: eventSkill, creator: eventCreator))
+                if (eventDate >= Date()) {
+                    headlines.append(Headline(date: eventDate, title: eventTitle, location: eventLoc, skill: eventSkill,   creator: eventCreator))
+                }
             }
             headlines.sort { $0.date < $1.date }
             self.sections = GroupedSection.group(rows: headlines, by: { firstDayOfMonth(date: $0.date) })
