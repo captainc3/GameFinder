@@ -7,6 +7,7 @@ struct Headline {
     var location : String
     var skill : String
     var creator : String
+    var category : String
 }
 
 
@@ -42,7 +43,7 @@ class ThirdViewController: UITableViewController, UISearchBarDelegate {
         super.viewDidLoad()
         self.getData()
         searchBar.searchBarStyle = UISearchBar.Style.prominent
-        searchBar.placeholder = " Search by title, skill, creator, or location..."
+        searchBar.placeholder = "Search title, skill, creator, location, or category"
         searchBar.sizeToFit()
         searchBar.isTranslucent = false
         let searchBarStyle = searchBar.value(forKey: "searchField") as? UITextField
@@ -65,7 +66,8 @@ class ThirdViewController: UITableViewController, UISearchBarDelegate {
           return (headline.title.lowercased().contains(searchText.lowercased()) ||
             headline.creator.lowercased().contains(searchText.lowercased()) ||
             headline.skill.lowercased().contains(searchText.lowercased()) ||
-            headline.location.lowercased().contains(searchText.lowercased()))
+            headline.location.lowercased().contains(searchText.lowercased()) ||
+            headline.category.lowercased().contains(searchText.lowercased()))
         }
         self.tableView.reloadData()
     }
@@ -96,6 +98,7 @@ class ThirdViewController: UITableViewController, UISearchBarDelegate {
                 var eventDate = Date()
                 var eventDateString = ""
                 var eventCreator = ""
+                var eventCategory = ""
                 let innerChildren = snap.value as? NSDictionary
                 for x in innerChildren! {
                     if (x.key as! String == "Location of event") {
@@ -113,15 +116,18 @@ class ThirdViewController: UITableViewController, UISearchBarDelegate {
                     if (x.key as! String == "Creator") {
                         eventCreator = x.value as! String
                     }
+                    if (x.key as! String == "Category") {
+                        eventCategory = x.value as! String
+                    }
                 }
                 let formatter = DateFormatter()
                 formatter.dateFormat = "MMM d yyyy"
                 let currentDateString = parseDateString(Date())
                 if (formatter.date(from: eventDateString)?.compare(formatter.date(from: currentDateString)!) == .orderedSame) {
-                    headlines.append(Headline(date: eventDate, title: eventTitle, location: eventLoc, skill: eventSkill,   creator: eventCreator))
+                    headlines.append(Headline(date: eventDate, title: eventTitle, location: eventLoc, skill: eventSkill,   creator: eventCreator, category: eventCategory))
                 }
                 if (formatter.date(from: eventDateString)?.compare(formatter.date(from: currentDateString)!) == .orderedDescending) {
-                    headlines.append(Headline(date: eventDate, title: eventTitle, location: eventLoc, skill: eventSkill,   creator: eventCreator))
+                    headlines.append(Headline(date: eventDate, title: eventTitle, location: eventLoc, skill: eventSkill,   creator: eventCreator, category: eventCategory))
                 }
             }
             headlines.sort { $0.date < $1.date }
