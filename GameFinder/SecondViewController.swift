@@ -210,7 +210,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         dateFormatter.dateFormat = "E, MMM d yyyy h:mm a"
         let calendar = Calendar(identifier: .gregorian)
         var comps = DateComponents()
-        comps.day = 2 //ONLY PICK DATE WITHIN 48 HOURS
+        comps.day = 3 //ONLY PICK DATE WITHIN 72 HOURS
         let maxDate = calendar.date(byAdding: comps, to: Date())
         comps.day = 0 //TODAYs DATE
         let minDate = calendar.date(byAdding: comps, to: Date())
