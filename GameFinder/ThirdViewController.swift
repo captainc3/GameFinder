@@ -30,20 +30,55 @@ private func parseDateString(_ date : Date) -> String {
 
 var headlines = [Headline]()
 
-class ThirdViewController: UITableViewController {
+class ThirdViewController: UITableViewController, UISearchBarDelegate {
     var count = 0
     var sections = [GroupedSection<Date, Headline>]()
+    var filteredData = [Headline]()
+    lazy var searchBar:UISearchBar = UISearchBar()
 
     // MARK: - View Controller lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.getData()
-        
+        searchBar.searchBarStyle = UISearchBar.Style.prominent
+        searchBar.placeholder = " Search..."
+        searchBar.sizeToFit()
+        searchBar.isTranslucent = false
+        let searchBarStyle = searchBar.value(forKey: "searchField") as? UITextField
+        searchBarStyle?.clearButtonMode = .never
+        searchBar.delegate = self
+        self.tableView.tableHeaderView = searchBar
         let logo = UIImage(named: "GameFinder3.png")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
         self.refreshControl?.addTarget(self, action: #selector(getData), for: UIControl.Event.valueChanged)
+        self.tableView.reloadData()
+    }
+    
+    var isFiltering: Bool {
+        return searchBar.text?.isEmpty ?? true
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredData = headlines.filter { (headline: Headline) -> Bool in
+          return (headline.title.lowercased().contains(searchText.lowercased()) ||
+            headline.creator.lowercased().contains(searchText.lowercased()) ||
+            headline.skill.lowercased().contains(searchText.lowercased()) ||
+            headline.location.lowercased().contains(searchText.lowercased()))
+        }
+        self.tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.endEditing(true)
+        self.tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.endEditing(true)
         self.tableView.reloadData()
     }
     
@@ -90,6 +125,7 @@ class ThirdViewController: UITableViewController {
                 }
             }
             headlines.sort { $0.date < $1.date }
+            self.filteredData = headlines
             self.sections = GroupedSection.group(rows: headlines, by: { firstDayOfMonth(date: $0.date) })
             self.sections.sort { lhs, rhs in lhs.sectionItem < rhs.sectionItem }
             self.tableView.reloadData()
@@ -112,6 +148,9 @@ class ThirdViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering {
+            return filteredData.count
+        }
         let section = self.sections[section]
         return section.rows.count
     }
@@ -122,7 +161,12 @@ class ThirdViewController: UITableViewController {
         df.dateFormat = "E, MM/d/yy"
 
         let section = self.sections[indexPath.section]
-        let headline = section.rows[indexPath.row]
+        var headline = section.rows[indexPath.row]
+        if isFiltering {
+            headline = filteredData[indexPath.row]
+        } else {
+            headline = section.rows[indexPath.row]
+        }
         cell.textLabel?.text = headline.title + " | " + df.string(from: headline.date)
 
         cell.detailTextLabel?.text = headline.location
@@ -142,7 +186,11 @@ class ThirdViewController: UITableViewController {
         if segue.identifier == "ShowDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let vc = segue.destination as! EventController
-                vc.cellDetails = headlines[indexPath.row].title + " Created by: " + headlines[indexPath.row].creator
+                if isFiltering {
+                    vc.cellDetails = filteredData[indexPath.row].title + " Created by: " + filteredData[indexPath.row].creator
+                } else {
+                    vc.cellDetails = headlines[indexPath.row].title + " Created by: " + headlines[indexPath.row].creator
+                }
             }
         }
     }
