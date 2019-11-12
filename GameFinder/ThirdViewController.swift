@@ -42,7 +42,7 @@ class ThirdViewController: UITableViewController, UISearchBarDelegate {
         super.viewDidLoad()
         self.getData()
         searchBar.searchBarStyle = UISearchBar.Style.prominent
-        searchBar.placeholder = " Search..."
+        searchBar.placeholder = " Search by title, skill, creator, or location..."
         searchBar.sizeToFit()
         searchBar.isTranslucent = false
         let searchBarStyle = searchBar.value(forKey: "searchField") as? UITextField
