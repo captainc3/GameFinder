@@ -69,11 +69,21 @@ class SubscriptionsController: UIViewController, UITextFieldDelegate {
        submitButton.backgroundColor = .white
         submitButton.setTitleColor(UIColor.mainBlue(), for: .normal)
         submitButton.center.x = self.view.center.x
-        submitButton.setTitle("SUBMIT", for: .normal)
+        submitButton.setTitle("SUBMIT SUBSCRIPTIONS", for: .normal)
         submitButton.showsTouchWhenHighlighted = true
         submitButton.layer.cornerRadius = 5
         submitButton.addTarget(self, action: #selector(updateSubscriptions), for: .touchUpInside)
         self.view.addSubview(submitButton)
+        
+        let doneButton = UIButton(frame: CGRect(x: xLoc + 100, y: yLoc + 390, width: 350, height: 40))
+        doneButton.backgroundColor = .white
+         doneButton.setTitleColor(UIColor.red, for: .normal)
+         doneButton.center.x = self.view.center.x
+         doneButton.setTitle("FINISH REGISTRATION", for: .normal)
+         doneButton.showsTouchWhenHighlighted = true
+         doneButton.layer.cornerRadius = 5
+         doneButton.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)
+         self.view.addSubview(doneButton)
         Database.database().reference().child("users").child(uid).child("subscriptions").observeSingleEvent(of: .value, with: {
             snapshot in
                 for child in snapshot.children {
@@ -138,14 +148,15 @@ class SubscriptionsController: UIViewController, UITextFieldDelegate {
 
     
     //Sign out Button
-    let doneButton: UIButton = {
+    /*let doneButton: UIButton = {
         let button = UIButton(type: .system)
         let attributedTitle = NSMutableAttributedString(string: "Done? ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white])
-        attributedTitle.append(NSAttributedString(string: "Finish Registration", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white]))
+        attributedTitle.append(NSAttributedString(string: "Finish Registration", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.red]))
         button.setAttributedTitle(attributedTitle, for: .normal)
         button.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)
         return button
-    }()
+    }() */
+    
     
     
     // MARK: - Init
@@ -164,8 +175,8 @@ class SubscriptionsController: UIViewController, UITextFieldDelegate {
     func configureViewComponents() {
         view.backgroundColor = UIColor.mainBlue()
         
-        view.addSubview(doneButton)
-        doneButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 32, paddingBottom: 12, paddingRight: 32, width: 0, height: 200)
+//        view.addSubview(doneButton)
+//        doneButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 32, paddingBottom: 12, paddingRight: 32, width: 0, height: 200)
         
     }
     

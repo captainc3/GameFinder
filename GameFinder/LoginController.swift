@@ -40,7 +40,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
-        iv.image = #imageLiteral(resourceName: "logo")
+        iv.image = #imageLiteral(resourceName: "newlogo")
         return iv
     }()
     
@@ -81,12 +81,23 @@ class LoginController: UIViewController,UITextFieldDelegate {
     
     let dontHaveAccountButton: UIButton = {
         let button = UIButton(type: .system)
+        button.setTitle("REGISTER", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.setTitleColor(UIColor.mainBlue(), for: .normal)
+        button.backgroundColor = .white
+        button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
+        button.layer.cornerRadius = 5
+        return button
+    }()
+    
+    /*let dontHaveAccountButton: UIButton = {
+        let button = UIButton(type: .system)
         let attributedTitle = NSMutableAttributedString(string: "Don't have an account?  ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white])
         attributedTitle.append(NSAttributedString(string: "Sign Up", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white]))
         button.setAttributedTitle(attributedTitle, for: .normal)
         button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
         return button
-    }()
+    }()*/
     
     // MARK: - Init
     
@@ -157,19 +168,19 @@ class LoginController: UIViewController,UITextFieldDelegate {
         navigationController?.navigationBar.isHidden = true
         
         view.addSubview(logoImageView)
-        logoImageView.anchor(top: view.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 60, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 150, height: 200)
+        logoImageView.anchor(top: view.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 60, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 280, height: 330)
         logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(emailContainerView)
-        emailContainerView.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+        emailContainerView.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
         
         view.addSubview(passwordContainerView)
         passwordContainerView.anchor(top: emailContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 16, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
         
         view.addSubview(loginButton)
-        loginButton.anchor(top: passwordContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+        loginButton.anchor(top: passwordContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 40, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
         
         view.addSubview(dontHaveAccountButton)
-        dontHaveAccountButton.anchor(top: loginButton.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 32, paddingBottom: 12, paddingRight: 32, width: 0, height: 50)
+        dontHaveAccountButton.anchor(top: loginButton.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 10, paddingLeft: 32, paddingBottom: 12, paddingRight: 32, width: 0, height: 50)
     }
 }

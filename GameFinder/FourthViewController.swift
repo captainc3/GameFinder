@@ -32,7 +32,7 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
     
     func addCheckboxSubviews() {
         let xLoc = 50
-        var yLoc = 165
+        var yLoc = 185
         guard let uid = Auth.auth().currentUser?.uid else { return }
     
         Database.database().reference().child("game_types").observeSingleEvent(of: .value, with: {
@@ -60,7 +60,7 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
         submitButton.backgroundColor = .white
         submitButton.setTitleColor(UIColor.mainBlue(), for: .normal)
         submitButton.center.x = self.view.center.x
-        submitButton.setTitle("SUBMIT", for: .normal)
+        submitButton.setTitle("SUBMIT SUBSCRIPTIONS", for: .normal)
         submitButton.showsTouchWhenHighlighted = true
         submitButton.layer.cornerRadius = 5
         submitButton.addTarget(self, action: #selector(updateSubscriptions), for: .touchUpInside)
@@ -74,12 +74,13 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
                     self.subscriptions[text] = true
                 }
         })
-        let requestGameLabel = UILabel(frame: CGRect(x: 50, y: yLoc + 380, width: 300, height: 30))
+        let requestGameLabel = UILabel(frame: CGRect(x: 130, y: yLoc + 400, width: 300, height: 30))
         requestGameLabel.text = "Request an Activity:"
         requestGameLabel.textColor = UIColor.white
         self.view.addSubview(requestGameLabel)
-        requestGameText = UITextField(frame: CGRect(x: 50, y: yLoc + 420, width: 315, height: 30))
+        requestGameText = UITextField(frame: CGRect(x: 50, y: yLoc + 440, width: 315, height: 30))
         requestGameText.borderStyle = UITextField.BorderStyle.roundedRect
+        //requestGameText.background = [UIColor, UIColor.white];
         requestGameText.autocorrectionType = UITextAutocorrectionType.no
         requestGameText.keyboardType = UIKeyboardType.default
         requestGameText.returnKeyType = UIReturnKeyType.done
@@ -88,15 +89,21 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
         requestGameText.placeholder = "Enter an activity"
         self.requestGameText.delegate = self
         self.view.addSubview(requestGameText)
-        let gameSubmitButton = UIButton(frame: CGRect(x: xLoc + 100, y: yLoc + 470, width: 350, height: 40))
+        let gameSubmitButton = UIButton(frame: CGRect(x: xLoc + 100, y: yLoc + 490, width: 350, height: 40))
         gameSubmitButton.backgroundColor = .white
         gameSubmitButton.setTitleColor(UIColor.mainBlue(), for: .normal)
         gameSubmitButton.center.x = self.view.center.x
         gameSubmitButton.layer.cornerRadius = 5
-        gameSubmitButton.setTitle("REQUEST", for: .normal)
+        gameSubmitButton.setTitle("SEND REQUEST", for: .normal)
         gameSubmitButton.showsTouchWhenHighlighted = true
         gameSubmitButton.addTarget(self, action: #selector(requestGame), for: .touchUpInside)
         self.view.addSubview(gameSubmitButton)
+        
+        let titleGameLabel = UILabel(frame: CGRect(x: 122, y: 140, width: 300, height: 50))
+        titleGameLabel.text = "Manage Subscriptions:"
+        titleGameLabel.textColor = UIColor.white
+        self.view.addSubview(titleGameLabel)
+        requestGameText = UITextField(frame: CGRect(x: 50, y: yLoc + 440, width: 315, height: 30))
     }
     
     @objc func requestGame(sender: UIButton!) {
@@ -165,7 +172,7 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
     let dontHaveAccountButton: UIButton = {
         let button = UIButton(type: .system)
         let attributedTitle = NSMutableAttributedString(string: "Done Already? ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white])
-        attributedTitle.append(NSAttributedString(string: "SignOut", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white]))
+        attributedTitle.append(NSAttributedString(string: "Sign Out", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.red]))
         button.setAttributedTitle(attributedTitle, for: .normal)
         button.addTarget(self, action: #selector(handleSignOut), for: .touchUpInside)
         return button
