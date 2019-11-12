@@ -57,6 +57,17 @@ class EventController: UIViewController, UITextFieldDelegate {
         return button
     }()
     
+    let unjoinButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("LEAVE EVENT", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.setTitleColor(UIColor.mainBlue(), for: .normal)
+        button.backgroundColor = .white
+        button.addTarget(self, action: #selector(unjoinEvent), for: .touchUpInside)
+        button.layer.cornerRadius = 5
+        return button
+    }()
+    
     let dontHaveAccountButton: UIButton = {
         let button = UIButton(type: .system)
         let attributedTitle = NSMutableAttributedString(string: "Don't want to join this event? ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white])
@@ -95,6 +106,24 @@ class EventController: UIViewController, UITextFieldDelegate {
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alertController, animated: true, completion: nil)
+    }
+    
+    @objc func unjoinEvent() {
+        let alertController = UIAlertController(title: nil, message: "Are you sure you want to leave this event?", preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Leave Event", style: .destructive, handler: { (_) in
+            self.unjoin()
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func unjoin() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        Database.database().reference().child("users").child(uid).child("username").observeSingleEvent(of: .value) { (snapshot) in
+            guard let username = snapshot.value as? String else { return }
+            Database.database().reference().child("joined_events").child(self.cellDetails).child(username).removeValue()
+        }
+        self.showToast(message: "Successfully left event")
     }
     
     func join() {
@@ -171,6 +200,9 @@ class EventController: UIViewController, UITextFieldDelegate {
         
         view.addSubview(loginButton)
         loginButton.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 200, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+        
+        view.addSubview(unjoinButton)
+        unjoinButton.anchor(top: loginButton.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 20, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
         
         view.addSubview(dontHaveAccountButton)
         dontHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 32, paddingBottom: 12, paddingRight: 32, width: 0, height: 50)
