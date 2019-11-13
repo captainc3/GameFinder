@@ -24,6 +24,7 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(title)
         addCheckboxSubviews()
         authenticateUserAndConfigureView()
+        requestGameText.delegate = self
         
         let logo = UIImage(named: "GameFinder3.png")
         let imageView = UIImageView(image:logo)
@@ -87,6 +88,7 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
         requestGameText.clearButtonMode = UITextField.ViewMode.whileEditing
         requestGameText.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         requestGameText.placeholder = "Enter an activity"
+        requestGameText.clearButtonMode = UITextField.ViewMode.whileEditing
         self.requestGameText.delegate = self
         self.view.addSubview(requestGameText)
         let gameSubmitButton = UIButton(frame: CGRect(x: xLoc + 100, y: yLoc + 490, width: 350, height: 40))
@@ -106,6 +108,11 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
         requestGameText = UITextField(frame: CGRect(x: 50, y: yLoc + 440, width: 315, height: 30))
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate method
+        textField.resignFirstResponder()
+        return true
+    }
+    
     @objc func requestGame(sender: UIButton!) {
         let input = self.requestGameText.text!
         Database.database().reference().child("requested_games").updateChildValues([input: input])
@@ -116,11 +123,6 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
         self.present(alert, animated: true)
     }
     
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.requestGameText.endEditing(true)
-        return false
-    }
 
     @objc func checkboxValueChanged(sender: Checkbox) {
         if (sender.isChecked) {
