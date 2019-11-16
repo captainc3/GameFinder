@@ -193,6 +193,17 @@ class EventController: UIViewController, UITextFieldDelegate {
         logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         var eventCreator = ""
+        var peopleString = ""
+        
+        Database.database().reference().child("joined_events").child(cellDetails).observeSingleEvent(of: .value, with: {
+            snapshot in
+            var count = 1
+            for _ in snapshot.children {
+                count += 1
+            }
+            print(count)
+            peopleString = "Joined People: \(count)"
+        })
         
         Database.database().reference().child("events").child(cellDetails).observeSingleEvent(of: .value, with: {
             snapshot in
@@ -225,9 +236,9 @@ class EventController: UIViewController, UITextFieldDelegate {
                 }
             }
             let eventDateString = "Date: \(eventDate)"
-            self.eventArray = [eventTitle, eventLoc, eventSkill, eventDateString, eventCategory, eventCreator]
+            self.eventArray = [eventTitle, eventLoc, eventSkill, eventDateString, eventCategory, eventCreator, peopleString]
             var yLoc = 180
-            for n in 0 ... 5 {
+            for n in 0 ... 6 {
                 let label = UILabel(frame: CGRect(x: 40, y: yLoc, width: 350, height: 21))
                 label.text = self.eventArray[n]
                 label.textColor = UIColor.white
@@ -239,16 +250,14 @@ class EventController: UIViewController, UITextFieldDelegate {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         Database.database().reference().child("users").child(uid).child("username").observeSingleEvent(of: .value) { (snapshot) in
             guard let username = snapshot.value as? String else { return }
-            print(eventCreator)
-            print(username)
             if (eventCreator == "Event by: " + username) {
                 self.view.addSubview(self.deleteButton)
-                self.deleteButton.anchor(top: self.logoImageView.bottomAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, paddingTop: 250, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+                self.deleteButton.anchor(top: self.logoImageView.bottomAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, paddingTop: 275, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
                 self.view.addSubview(self.goBackButton)
                 self.goBackButton.anchor(top: nil, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, paddingTop: 0, paddingLeft: 32, paddingBottom: 12, paddingRight: 32, width: 0, height: 50)
             } else {
                 self.view.addSubview(self.loginButton)
-                self.loginButton.anchor(top: self.logoImageView.bottomAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, paddingTop: 250, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+                self.loginButton.anchor(top: self.logoImageView.bottomAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, paddingTop: 275, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
                 
                 self.view.addSubview(self.unjoinButton)
                 self.unjoinButton.anchor(top: self.loginButton.bottomAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, paddingTop: 20, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
