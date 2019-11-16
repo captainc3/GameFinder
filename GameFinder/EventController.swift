@@ -14,7 +14,7 @@ class EventController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Properties
     var cellDetails:String = ""
-    
+    var eventArray = [String]()
     
     func showToast(message : String) {
 
@@ -57,6 +57,17 @@ class EventController: UIViewController, UITextFieldDelegate {
         return button
     }()
     
+    let deleteButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("DELETE EVENT", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.setTitleColor(UIColor.mainBlue(), for: .normal)
+        button.backgroundColor = .white
+        button.addTarget(self, action: #selector(deleteEvent), for: .touchUpInside)
+        button.layer.cornerRadius = 5
+        return button
+    }()
+    
     let unjoinButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("LEAVE EVENT", for: .normal)
@@ -71,6 +82,15 @@ class EventController: UIViewController, UITextFieldDelegate {
     let dontHaveAccountButton: UIButton = {
         let button = UIButton(type: .system)
         let attributedTitle = NSMutableAttributedString(string: "Don't want to join this event? ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white])
+        attributedTitle.append(NSAttributedString(string: "Go back", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white]))
+        button.setAttributedTitle(attributedTitle, for: .normal)
+        button.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)
+        return button
+    }()
+    
+    let goBackButton: UIButton = {
+        let button = UIButton(type: .system)
+        let attributedTitle = NSMutableAttributedString(string: "Don't want to view this event? ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white])
         attributedTitle.append(NSAttributedString(string: "Go back", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white]))
         button.setAttributedTitle(attributedTitle, for: .normal)
         button.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)
@@ -98,6 +118,23 @@ class EventController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: - Selectors
+    
+    @objc func deleteEvent() {
+        let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete this event?", preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Delete Event", style: .destructive, handler: { (_) in
+            self.deleteEventFunc()
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func deleteEventFunc() {
+        let childstr = eventArray[0] + " Created by:" + eventArray[5].split(separator: ":")[1]
+        Database.database().reference().child("events").child(childstr).removeValue()
+        Database.database().reference().child("joined_events").child(childstr).removeValue()
+        handleShowLogin()
+        self.showToast(message: "Successfully deleted event")
+    }
     
     @objc func joinEvent() {
         let alertController = UIAlertController(title: nil, message: "Are you sure you want to join this event?", preferredStyle: .actionSheet)
@@ -155,6 +192,8 @@ class EventController: UIViewController, UITextFieldDelegate {
         logoImageView.anchor(top: view.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 150, height: 150)
         logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
+        var eventCreator = ""
+        
         Database.database().reference().child("events").child(cellDetails).observeSingleEvent(of: .value, with: {
             snapshot in
             
@@ -163,7 +202,6 @@ class EventController: UIViewController, UITextFieldDelegate {
             var eventLoc = ""
             var eventSkill = ""
             var eventDate = ""
-            var eventCreator = ""
             var eventCategory = ""
             
             for child in snapshot.children {
@@ -187,25 +225,37 @@ class EventController: UIViewController, UITextFieldDelegate {
                 }
             }
             let eventDateString = "Date: \(eventDate)"
-            let eventArray = [eventTitle, eventLoc, eventSkill, eventDateString, eventCategory, eventCreator]
+            self.eventArray = [eventTitle, eventLoc, eventSkill, eventDateString, eventCategory, eventCreator]
             var yLoc = 180
             for n in 0 ... 5 {
                 let label = UILabel(frame: CGRect(x: 40, y: yLoc, width: 350, height: 21))
-                label.text = eventArray[n]
+                label.text = self.eventArray[n]
                 label.textColor = UIColor.white
                 yLoc = yLoc + 35
                 self.view.addSubview(label)
             }
         })
         
-        view.addSubview(loginButton)
-        loginButton.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 250, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
-        
-        view.addSubview(unjoinButton)
-        unjoinButton.anchor(top: loginButton.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 20, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
-        
-        view.addSubview(dontHaveAccountButton)
-        dontHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 32, paddingBottom: 12, paddingRight: 32, width: 0, height: 50)
-        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        Database.database().reference().child("users").child(uid).child("username").observeSingleEvent(of: .value) { (snapshot) in
+            guard let username = snapshot.value as? String else { return }
+            print(eventCreator)
+            print(username)
+            if (eventCreator == "Event by: " + username) {
+                self.view.addSubview(self.deleteButton)
+                self.deleteButton.anchor(top: self.logoImageView.bottomAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, paddingTop: 250, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+                self.view.addSubview(self.goBackButton)
+                self.goBackButton.anchor(top: nil, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, paddingTop: 0, paddingLeft: 32, paddingBottom: 12, paddingRight: 32, width: 0, height: 50)
+            } else {
+                self.view.addSubview(self.loginButton)
+                self.loginButton.anchor(top: self.logoImageView.bottomAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, paddingTop: 250, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+                
+                self.view.addSubview(self.unjoinButton)
+                self.unjoinButton.anchor(top: self.loginButton.bottomAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, paddingTop: 20, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
+                
+                self.view.addSubview(self.dontHaveAccountButton)
+                self.dontHaveAccountButton.anchor(top: nil, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, paddingTop: 0, paddingLeft: 32, paddingBottom: 12, paddingRight: 32, width: 0, height: 50)
+            }
+        }
     }
 }
