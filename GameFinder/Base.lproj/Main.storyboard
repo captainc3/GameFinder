@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -163,11 +163,11 @@
             </objects>
             <point key="canvasLocation" x="2045" y="98"/>
         </scene>
-        <!--Misc.-->
+        <!--Profile-->
         <scene sceneID="5dm-Np-7q5">
             <objects>
                 <navigationController id="9no-Zd-uvo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Misc." image="profile-" id="rsa-00-r1Q"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="profile-" id="rsa-00-r1Q"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="v7b-YJ-Ch5">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -202,7 +202,7 @@
             </objects>
             <point key="canvasLocation" x="1385" y="-586"/>
         </scene>
-        <!--Misc-->
+        <!--Profile-->
         <scene sceneID="7C1-NC-8yL">
             <objects>
                 <viewController storyboardIdentifier="4view" id="pyN-xI-wgQ" customClass="FourthViewController" customModule="GameFinder" customModuleProvider="target" sceneMemberID="viewController">
@@ -218,7 +218,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="1Xi-Hk-4Fb"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Misc" image="profile-" id="7rv-bg-8ws" userLabel="Subscriptions"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="profile-" id="7rv-bg-8ws" userLabel="Subscriptions"/>
                     <navigationItem key="navigationItem" id="HKF-FX-fKs"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bR-jh-hiw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
