@@ -29,6 +29,14 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
         let logo = UIImage(named: "GameFinder3.png")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
+        
+    }
+    
+    //preventing rotation
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask{
+        get {
+            return .portrait
+        }
     }
     
     func addCheckboxSubviews() {

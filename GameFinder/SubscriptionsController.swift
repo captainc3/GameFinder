@@ -27,6 +27,15 @@ class SubscriptionsController: UIViewController, UITextFieldDelegate {
         assignbackground()
     }
     
+    //preventing rotation
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask{
+        get {
+            return .portrait
+        }
+    }
+    
+    
+    
     func assignbackground(){
         let background = UIImage(named: "IMG")
 

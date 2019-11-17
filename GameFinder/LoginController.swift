@@ -116,6 +116,13 @@ class LoginController: UIViewController,UITextFieldDelegate {
         // Do any additional setup after loading the view.
     }
     
+    //preventing rotation
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask{
+        get {
+            return .portrait
+        }
+    }
+    
     // MARK: - Selectors
     
     @objc func handleLogin(sender: AnyObject) {
