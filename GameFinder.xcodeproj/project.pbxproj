@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		1F625CC6234AE79B006D7ED2 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F625CC5234AE79B006D7ED2 /* EventController.swift */; };
 		1F728BCD235EAD340015CDA4 /* SubscriptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F728BCC235EAD340015CDA4 /* SubscriptionsController.swift */; };
-		1FEDAE442381ECD400640842 /* ManageSubsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDAE432381ECD400640842 /* ManageSubsController.swift */; };
+		1FEDAE4A23820CB400640842 /* ManageSubsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDAE4923820CB400640842 /* ManageSubsController.swift */; };
 		1FF502452347F51A0008E0C1 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF502442347F51A0008E0C1 /* LoginController.swift */; };
 		1FF502472347F5BD0008E0C1 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF502462347F5BD0008E0C1 /* SignUpController.swift */; };
 		1FF502492347F6E00008E0C1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF502482347F6E00008E0C1 /* Extensions.swift */; };
@@ -32,7 +32,7 @@
 		1479D36EC1AE6136DA6C7954 /* Pods_GameFinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameFinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F625CC5234AE79B006D7ED2 /* EventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
 		1F728BCC235EAD340015CDA4 /* SubscriptionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsController.swift; sourceTree = "<group>"; };
-		1FEDAE432381ECD400640842 /* ManageSubsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageSubsController.swift; sourceTree = "<group>"; };
+		1FEDAE4923820CB400640842 /* ManageSubsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageSubsController.swift; sourceTree = "<group>"; };
 		1FF502442347F51A0008E0C1 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		1FF502462347F5BD0008E0C1 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		1FF502482347F6E00008E0C1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -122,7 +122,7 @@
 				1F625CC5234AE79B006D7ED2 /* EventController.swift */,
 				1FF502482347F6E00008E0C1 /* Extensions.swift */,
 				1F728BCC235EAD340015CDA4 /* SubscriptionsController.swift */,
-				1FEDAE432381ECD400640842 /* ManageSubsController.swift */,
+				1FEDAE4923820CB400640842 /* ManageSubsController.swift */,
 			);
 			path = GameFinder;
 			sourceTree = "<group>";
@@ -252,7 +252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9251E985234525F000DFF651 /* FourthViewController.swift in Sources */,
-				1FEDAE442381ECD400640842 /* ManageSubsController.swift in Sources */,
+				1FEDAE4A23820CB400640842 /* ManageSubsController.swift in Sources */,
 				9251E9872345294500DFF651 /* CustomTabBarController.swift in Sources */,
 				1FF502472347F5BD0008E0C1 /* SignUpController.swift in Sources */,
 				9251E973234525AF00DFF651 /* SecondViewController.swift in Sources */,
