@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GoogleMobileAds
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,9 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("granted: \(granted)")
             
         }
+        
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
         FirebaseApp.configure()
-        
-        
         window = UIWindow()
         window?.makeKeyAndVisible()
         let navController = UINavigationController(rootViewController: FirstViewController())

@@ -8,9 +8,32 @@
 
 import UIKit
 import Firebase
+import GoogleMobileAds
 
 
 class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+       bannerView.translatesAutoresizingMaskIntoConstraints = false
+       view.addSubview(bannerView)
+       view.addConstraints(
+         [NSLayoutConstraint(item: bannerView,
+                             attribute: .bottom,
+                             relatedBy: .equal,
+                             toItem: bottomLayoutGuide,
+                             attribute: .top,
+                             multiplier: 1,
+                             constant: 0),
+          NSLayoutConstraint(item: bannerView,
+                             attribute: .centerX,
+                             relatedBy: .equal,
+                             toItem: view,
+                             attribute: .centerX,
+                             multiplier: 1,
+                             constant: 0)
+         ])
+      }
+    
     
     //var datePicker: UIDatePicker?
     
@@ -123,6 +146,8 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         nameTextField.resignFirstResponder()
         return true
     }
+    
+    var bannerView: GADBannerView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,6 +176,12 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         self.navigationItem.titleView = imageView
         
         // Do any additional setup after loading the view.
+        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        addBannerViewToView(bannerView)
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+        
     }
     
     // MARK: - Selectors
@@ -176,7 +207,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             showToast(message: "Please fill in all required fields.")
         } else {
             createEvent(category: category, name: name, time: time, location: location, skill: skill)
-            showToast(message: "Succesfully Created an Event!")
+            showToast(message: "Successfully Created an Event!")
         }
         
     }

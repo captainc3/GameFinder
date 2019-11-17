@@ -1,5 +1,6 @@
 import UIKit
 import Firebase
+import GoogleMobileAds
 
 struct Headline {
     var date : Date
