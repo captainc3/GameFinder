@@ -11,6 +11,7 @@ import Firebase
 
 class FirstViewController: UIViewController {
     
+    
     // MARK: - Properties
     
     //Sign out Button

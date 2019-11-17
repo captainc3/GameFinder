@@ -16,6 +16,39 @@ class EventController: UIViewController, UITextFieldDelegate {
     var cellDetails:String = ""
     var eventArray = [String]()
     
+    func LocalNotifications(Title: String, Body: String, Timeint: Int) {
+        // Step 1: Ask for Permission
+        let center =  UNUserNotificationCenter.current()
+        
+        center.requestAuthorization(options: [.alert, .badge, .sound]) {(granted, error) in
+            print("granted: \(granted)")
+            
+        }
+        
+        // Step 2: Create the notification content
+        let content = UNMutableNotificationContent()
+        content.title = Title
+        content.body = Body
+        
+        // Step 3: Create the notification trigger
+        let date = Date().addingTimeInterval(TimeInterval(Timeint))
+        
+        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        
+        // Step 4: Create the request
+        
+        let uuidString = UUID().uuidString
+        
+        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+        
+        // Step 5: Register the request
+        center.add(request) { (error) in
+            // Check the error parameter and handle any errors
+        }
+    }
+    
     func showToast(message : String) {
 
         let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 120, y: self.view.frame.size.height - 385, width: 250, height: 35))
@@ -112,6 +145,7 @@ class EventController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        LocalNotifications(Title: "JOINED", Body: "An Event you joined is happening soon!!", Timeint: 10)
         configureViewComponents()
         
         // Do any additional setup after loading the view.

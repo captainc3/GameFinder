@@ -11,6 +11,8 @@ struct Headline {
 }
 
 
+
+
 private func firstDayOfMonth(date: Date) -> Date {
     let calendar = Calendar.current
     let components = calendar.dateComponents([.year, .month], from: date)
@@ -38,8 +40,43 @@ class ThirdViewController: UITableViewController, UISearchBarDelegate {
     lazy var searchBar:UISearchBar = UISearchBar()
 
     // MARK: - View Controller lifecycle
+    
+    func LocalNotifications(Title: String, Body: String, Timeint: Int) {
+        // Step 1: Ask for Permission
+        let center =  UNUserNotificationCenter.current()
+        
+        center.requestAuthorization(options: [.alert, .badge, .sound]) {(granted, error) in
+            print("granted: \(granted)")
+            
+        }
+        
+        // Step 2: Create the notification content
+        let content = UNMutableNotificationContent()
+        content.title = Title
+        content.body = Body
+        
+        // Step 3: Create the notification trigger
+        let date = Date().addingTimeInterval(TimeInterval(Timeint))
+        
+        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        
+        // Step 4: Create the request
+        
+        let uuidString = UUID().uuidString
+        
+        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+        
+        // Step 5: Register the request
+        center.add(request) { (error) in
+            // Check the error parameter and handle any errors
+        }
+    }
 
     override func viewDidLoad() {
+        LocalNotifications(Title: "Notification 1", Body: "Cheescake", Timeint: 5)
+        LocalNotifications(Title: "Notification 2", Body: "Burger", Timeint: 10)
         super.viewDidLoad()
         self.getData()
         searchBar.searchBarStyle = UISearchBar.Style.prominent
