@@ -10,5 +10,6 @@ target 'GameFinder' do
 	pod 'Firebase/Database'
 	pod 'Firebase/Auth'
 	pod 'SimpleCheckbox'
+  pod 'Google-Mobile-Ads-SDK'
 
 end

@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GoogleMobileAds
 
 
 class EventController: UIViewController, UITextFieldDelegate {
@@ -111,24 +112,6 @@ class EventController: UIViewController, UITextFieldDelegate {
         button.layer.cornerRadius = 5
         return button
     }()
-    
-    let dontHaveAccountButton: UIButton = {
-        let button = UIButton(type: .system)
-        let attributedTitle = NSMutableAttributedString(string: "Don't want to join this event? ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white])
-        attributedTitle.append(NSAttributedString(string: "Go back", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white]))
-        button.setAttributedTitle(attributedTitle, for: .normal)
-        button.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)
-        return button
-    }()
-    
-    let goBackButton: UIButton = {
-        let button = UIButton(type: .system)
-        let attributedTitle = NSMutableAttributedString(string: "Don't want to view this event? ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white])
-        attributedTitle.append(NSAttributedString(string: "Go back", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white]))
-        button.setAttributedTitle(attributedTitle, for: .normal)
-        button.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)
-        return button
-    }()
 
     // MARK: - Init
     
@@ -143,12 +126,40 @@ class EventController: UIViewController, UITextFieldDelegate {
         return dateFormat.date(from: str)!
     }
 
+    var bannerView: GADBannerView!
+    
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+     bannerView.translatesAutoresizingMaskIntoConstraints = false
+     view.addSubview(bannerView)
+     view.addConstraints(
+       [NSLayoutConstraint(item: bannerView,
+                           attribute: .bottom,
+                           relatedBy: .equal,
+                           toItem: bottomLayoutGuide,
+                           attribute: .top,
+                           multiplier: 1,
+                           constant: 0),
+        NSLayoutConstraint(item: bannerView,
+                           attribute: .centerX,
+                           relatedBy: .equal,
+                           toItem: view,
+                           attribute: .centerX,
+                           multiplier: 1,
+                           constant: 0)
+       ])
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         LocalNotifications(Title: "JOINED", Body: "An Event you joined is happening soon!!", Timeint: 10)
         configureViewComponents()
         
         // Do any additional setup after loading the view.
+        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        addBannerViewToView(bannerView)
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
     }
     
     // MARK: - Selectors
@@ -287,17 +298,13 @@ class EventController: UIViewController, UITextFieldDelegate {
             if (eventCreator == "Event by: " + username) {
                 self.view.addSubview(self.deleteButton)
                 self.deleteButton.anchor(top: self.logoImageView.bottomAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, paddingTop: 275, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
-                self.view.addSubview(self.goBackButton)
-                self.goBackButton.anchor(top: nil, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, paddingTop: 0, paddingLeft: 32, paddingBottom: 12, paddingRight: 32, width: 0, height: 50)
             } else {
                 self.view.addSubview(self.loginButton)
                 self.loginButton.anchor(top: self.logoImageView.bottomAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, paddingTop: 275, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
                 
                 self.view.addSubview(self.unjoinButton)
                 self.unjoinButton.anchor(top: self.loginButton.bottomAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, paddingTop: 20, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 50)
-                
-                self.view.addSubview(self.dontHaveAccountButton)
-                self.dontHaveAccountButton.anchor(top: nil, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, paddingTop: 0, paddingLeft: 32, paddingBottom: 12, paddingRight: 32, width: 0, height: 50)
+            
             }
         }
     }
