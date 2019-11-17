@@ -121,6 +121,14 @@ class SignUpController: UIViewController, UITextFieldDelegate {
         lnameTextField.delegate = self
         assignbackground()
         // Do any additional setup after loading the view.
+        
+    }
+    
+    //preventing rotation
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask{
+        get {
+            return .portrait
+        }
     }
     
     func assignbackground(){

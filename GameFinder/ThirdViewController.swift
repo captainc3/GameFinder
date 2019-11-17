@@ -93,6 +93,15 @@ class ThirdViewController: UITableViewController, UISearchBarDelegate {
         self.navigationItem.titleView = imageView
         self.refreshControl?.addTarget(self, action: #selector(getData), for: UIControl.Event.valueChanged)
         self.tableView.reloadData()
+        
+        
+    }
+    
+    //preventing rotation
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask{
+        get {
+            return .portrait
+        }
     }
     
     var isFiltering: Bool {

@@ -184,6 +184,13 @@ class SecondViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         
     }
     
+    //preventing rotation
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask{
+        get {
+            return .portrait
+        }
+    }
+    
     // MARK: - Selectors
     
     @objc func handleCreateEvent() {

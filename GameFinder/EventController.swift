@@ -160,6 +160,14 @@ class EventController: UIViewController, UITextFieldDelegate {
         bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
+        
+    }
+    
+    //preventing rotation
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask{
+        get {
+            return .portrait
+        }
     }
     
     // MARK: - Selectors

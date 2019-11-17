@@ -24,6 +24,13 @@ class FirstViewController: UIViewController {
         return button
     }()
     
+    //preventing rotation
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask{
+        get {
+            return .portrait
+        }
+    }
+    
     var welcomeLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
