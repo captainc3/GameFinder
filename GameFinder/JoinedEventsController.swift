@@ -37,8 +37,9 @@ class JoinedEventsController: UIViewController, UITextFieldDelegate {
                 
                }
                var yLoc = 180
-            let title = UILabel(frame: CGRect(x: 150, y: yLoc, width: 350, height: 30))
+            let title = UILabel(frame: CGRect(x: 127, y: yLoc, width: 350, height: 21))
             title.text = "Joined Events"
+            title.font = title.font.withSize(30)
             title.shadowColor = UIColor.black
             title.layer.shadowOffset = CGSize(width: -2, height: -2)
             title.textColor = UIColor.white
