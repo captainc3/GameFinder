@@ -1,10 +1,13 @@
 //
 //  FirstViewController.swift
+//  USELESS CLASS
 //  GameFinder
 //
 //  Created by Steven Corrales on 10/2/19.
 //  Copyright © 2019 Steven Corrales. All rights reserved.
 //
+
+//USELESS CLASS
 
 import UIKit
 import Firebase
