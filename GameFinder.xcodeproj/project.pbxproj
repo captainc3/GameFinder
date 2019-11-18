@@ -10,6 +10,7 @@
 		1F625CC6234AE79B006D7ED2 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F625CC5234AE79B006D7ED2 /* EventController.swift */; };
 		1F728BCD235EAD340015CDA4 /* SubscriptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F728BCC235EAD340015CDA4 /* SubscriptionsController.swift */; };
 		1FEDAE4A23820CB400640842 /* ManageSubsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDAE4923820CB400640842 /* ManageSubsController.swift */; };
+		1FEDAE4C238323D200640842 /* JoinedEventsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDAE4B238323D200640842 /* JoinedEventsController.swift */; };
 		1FF502452347F51A0008E0C1 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF502442347F51A0008E0C1 /* LoginController.swift */; };
 		1FF502472347F5BD0008E0C1 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF502462347F5BD0008E0C1 /* SignUpController.swift */; };
 		1FF502492347F6E00008E0C1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF502482347F6E00008E0C1 /* Extensions.swift */; };
@@ -33,6 +34,7 @@
 		1F625CC5234AE79B006D7ED2 /* EventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
 		1F728BCC235EAD340015CDA4 /* SubscriptionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsController.swift; sourceTree = "<group>"; };
 		1FEDAE4923820CB400640842 /* ManageSubsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageSubsController.swift; sourceTree = "<group>"; };
+		1FEDAE4B238323D200640842 /* JoinedEventsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinedEventsController.swift; sourceTree = "<group>"; };
 		1FF502442347F51A0008E0C1 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		1FF502462347F5BD0008E0C1 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		1FF502482347F6E00008E0C1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				1FF502482347F6E00008E0C1 /* Extensions.swift */,
 				1F728BCC235EAD340015CDA4 /* SubscriptionsController.swift */,
 				1FEDAE4923820CB400640842 /* ManageSubsController.swift */,
+				1FEDAE4B238323D200640842 /* JoinedEventsController.swift */,
 			);
 			path = GameFinder;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				1FF502472347F5BD0008E0C1 /* SignUpController.swift in Sources */,
 				9251E973234525AF00DFF651 /* SecondViewController.swift in Sources */,
 				92258494235CED640027CEAF /* GroupedSection.swift in Sources */,
+				1FEDAE4C238323D200640842 /* JoinedEventsController.swift in Sources */,
 				1F625CC6234AE79B006D7ED2 /* EventController.swift in Sources */,
 				9251E971234525AF00DFF651 /* FirstViewController.swift in Sources */,
 				1F728BCD235EAD340015CDA4 /* SubscriptionsController.swift in Sources */,
