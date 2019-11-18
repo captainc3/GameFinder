@@ -197,7 +197,7 @@ class FourthViewController: UIViewController, UITextFieldDelegate {
         let attributedTitle = NSMutableAttributedString(string: "Done Already? ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white])
         attributedTitle.append(NSAttributedString(string: "Sign Out", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.red]))
         button.setAttributedTitle(attributedTitle, for: .normal)
-        button.addTarget(self, action: #selector(showSubs), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleSignOut), for: .touchUpInside)
         return button
     }()
     

@@ -42,6 +42,7 @@ class ThirdViewController: UITableViewController, UISearchBarDelegate {
 
     // MARK: - View Controller lifecycle
     
+    
     func LocalNotifications(Title: String, Body: String, Timeint: Int) {
         // Step 1: Ask for Permission
         let center =  UNUserNotificationCenter.current()
@@ -79,6 +80,9 @@ class ThirdViewController: UITableViewController, UISearchBarDelegate {
         LocalNotifications(Title: "Notification 1", Body: "Cheescake", Timeint: 5)
         LocalNotifications(Title: "Notification 2", Body: "Burger", Timeint: 10)
         super.viewDidLoad()
+        let stringDate = "Fri, Nov 15 2019 4:30 PM"
+        let date = stringDate.asDate
+        print(date)
         self.getData()
         searchBar.searchBarStyle = UISearchBar.Style.prominent
         searchBar.placeholder = "Search title, skill, creator, location, or category"
@@ -246,5 +250,14 @@ class ThirdViewController: UITableViewController, UISearchBarDelegate {
                 }
             }
         }
+    }
+}
+
+extension String {
+    /// Returns a date from a string in MMMM dd, yyyy. Will return today's date if input is invalid.
+    var asDate: Date {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E, MMM d yyyy h:mm a"
+        return formatter.date(from: self) ?? Date()
     }
 }
