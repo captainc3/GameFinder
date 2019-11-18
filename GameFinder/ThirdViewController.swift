@@ -1,3 +1,13 @@
+//
+//  SecondViewController.swift
+//  VIEW EVENTS PAGE
+//  GameFinder
+//
+//  Created by Warren Waleed on 10/2/19.
+//  Copyright © 2019 Warren Waleed. All rights reserved.
+//
+
+
 import UIKit
 import Firebase
 import GoogleMobileAds

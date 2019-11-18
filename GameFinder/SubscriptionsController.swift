@@ -1,5 +1,6 @@
 //
 //  SubscriptionsController.swift
+//  ADD SUBSCRIPTIONS AFTER SIGNUP
 //  GameFinder
 //
 //  Created by Warren Waleed on 10/21/19.

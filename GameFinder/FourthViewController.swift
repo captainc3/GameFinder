@@ -1,5 +1,6 @@
 //
 //  FourthViewController.swift
+//  PROFILE PAGE
 //  GameFinder
 //
 //  Created by Steven Corrales on 10/2/19.

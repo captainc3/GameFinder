@@ -1,5 +1,6 @@
 //
 //  ManageSubsController.swift
+//  CHANGE SUBSCRIPTIONS ON PROFILE PAGE
 //  GameFinder
 //
 //  Created by Warren Waleed on 11/17/19.
@@ -21,6 +22,7 @@ class ManageSubsController: UIViewController, UITextFieldDelegate {
         title.textAlignment = .center
         title.text = "Subscriptions"
         title.center.x = view.center.x
+        
         view.addSubview(title)
         addCheckboxSubviews()
         requestGameText.delegate = self
@@ -52,6 +54,8 @@ class ManageSubsController: UIViewController, UITextFieldDelegate {
                 let label = UILabel(frame: CGRect(x: xLoc + 40, y: yLoc, width: 200, height: 21))
                 label.text = snap.value as! String?
                 label.textColor = UIColor.white
+                label.shadowColor = UIColor.black
+                label.layer.shadowOffset = CGSize(width: -2, height: -2)
                 self.checkboxes[label.text!] = tickBox
                 tickBox.accessibilityIdentifier = label.text
                 tickBox.borderStyle = .square
@@ -85,6 +89,8 @@ class ManageSubsController: UIViewController, UITextFieldDelegate {
         let requestGameLabel = UILabel(frame: CGRect(x: 130, y: yLoc + 400, width: 300, height: 30))
         requestGameLabel.text = "Request an Activity:"
         requestGameLabel.textColor = UIColor.white
+        requestGameLabel.shadowColor = UIColor.black
+        requestGameLabel.layer.shadowOffset = CGSize(width: -2, height: -2)
         self.view.addSubview(requestGameLabel)
         requestGameText = UITextField(frame: CGRect(x: 50, y: yLoc + 440, width: 315, height: 30))
         requestGameText.borderStyle = UITextField.BorderStyle.roundedRect
@@ -111,6 +117,8 @@ class ManageSubsController: UIViewController, UITextFieldDelegate {
         let titleGameLabel = UILabel(frame: CGRect(x: 122, y: 140, width: 300, height: 50))
         titleGameLabel.text = "Manage Subscriptions:"
         titleGameLabel.textColor = UIColor.white
+        titleGameLabel.shadowColor = UIColor.black
+        titleGameLabel.layer.shadowOffset = CGSize(width: -2, height: -2)
         self.view.addSubview(titleGameLabel)
         requestGameText = UITextField(frame: CGRect(x: 50, y: yLoc + 440, width: 315, height: 30))
     }

@@ -1,5 +1,6 @@
 //
 //  EventController.swift
+//  DISPLAYS EVENTS 
 //  GameFinder
 //
 //  Created by Warren Waleed on 10/6/19.
@@ -322,6 +323,8 @@ class EventController: UIViewController, UITextFieldDelegate {
                 let label = UILabel(frame: CGRect(x: 40, y: yLoc, width: 350, height: 21))
                 label.text = self.eventArray[n]
                 label.textColor = UIColor.white
+                label.shadowColor = UIColor.black
+                label.layer.shadowOffset = CGSize(width: -2, height: -2)
                 yLoc = yLoc + 35
                 self.view.addSubview(label)
             }

@@ -1,5 +1,6 @@
 //
 //  LoginController.swift
+//  LOGIN CONTROLLER
 //  GameFinder
 //
 //  Created by Warren Waleed on 10/4/19.
