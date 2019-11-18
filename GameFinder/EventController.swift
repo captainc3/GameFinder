@@ -17,7 +17,7 @@ class EventController: UIViewController, UITextFieldDelegate {
     var cellDetails:String = ""
     var eventArray = [String]()
     
-    func LocalNotifications(Title: String, Body: String, Timeint: Int) {
+    func LocalNotifications(Title: String, Body: String, Timeint: Date) {
         // Step 1: Ask for Permission
         let center =  UNUserNotificationCenter.current()
         
@@ -32,7 +32,7 @@ class EventController: UIViewController, UITextFieldDelegate {
         content.body = Body
         
         // Step 3: Create the notification trigger
-        let date = Date().addingTimeInterval(TimeInterval(Timeint))
+        let date = Timeint
         
         let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
         
@@ -148,12 +148,10 @@ class EventController: UIViewController, UITextFieldDelegate {
                            constant: 0)
        ])
     }
-    
+    var eDate: String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-        LocalNotifications(Title: "JOINED", Body: "An Event you joined is happening soon!!", Timeint: 10)
         configureViewComponents()
-        
         // Do any additional setup after loading the view.
         bannerView = GADBannerView(adSize: kGADAdSizeBanner)
         addBannerViewToView(bannerView)
@@ -223,6 +221,35 @@ class EventController: UIViewController, UITextFieldDelegate {
             Database.database().reference().child("joined_events").child(self.cellDetails).setValue([username: uid])
         }
         self.showToast(message: "Successfully joined event")
+        
+        Database.database().reference().child("events").child(cellDetails).observeSingleEvent(of: .value, with: {
+            snapshot in
+            
+            let delimiter = " Created"
+            let eventTitle = snapshot.key.components(separatedBy: delimiter)[0]
+            var eventDate = ""
+            var eventLoc = ""
+            
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                if (snap.key == "Location of event") {
+                    eventLoc = "Location: \(snap.value as! String)"
+                }
+                if (snap.key == "Time of event") {
+                    let delimiter = " "
+                    let dateString = Array((snap.value as! String).components(separatedBy: delimiter))
+                    eventDate = dateString.joined(separator: " ")
+                    print("EVENT DATE:     ", eventDate)
+                    self.eDate = eventDate
+                    print("FIRST EVENT DATE:     ", eventDate.asDate)
+                           let modDate = Calendar.current.date(byAdding: .hour, value: -1, to: eventDate.asDate)!
+                    let body = "This Event you joined is happening now at " +  eventLoc + "!!"
+                    let body2 = "This Event you joined is happening soon at " +  eventLoc + "!!"
+                    self.LocalNotifications(Title: eventTitle, Body: body, Timeint: eventDate.asDate)
+                    self.LocalNotifications(Title: eventTitle, Body: body2, Timeint: modDate)
+                }
+            }
+        })
     }
     
     @objc func handleShowLogin() {
@@ -315,5 +342,14 @@ class EventController: UIViewController, UITextFieldDelegate {
             
             }
         }
+    }
+}
+
+extension String {
+    /// Returns a date from a string in MMMM dd, yyyy. Will return today's date if input is invalid.
+    var asDate: Date {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E, MMM d yyyy h:mm a"
+        return formatter.date(from: self) ?? Date()
     }
 }

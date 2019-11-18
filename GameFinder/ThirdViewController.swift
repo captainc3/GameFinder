@@ -77,8 +77,6 @@ class ThirdViewController: UITableViewController, UISearchBarDelegate {
     }
 
     override func viewDidLoad() {
-        LocalNotifications(Title: "Notification 1", Body: "Cheescake", Timeint: 5)
-        LocalNotifications(Title: "Notification 2", Body: "Burger", Timeint: 10)
         super.viewDidLoad()
         let stringDate = "Fri, Nov 15 2019 4:30 PM"
         let date = stringDate.asDate
@@ -250,14 +248,5 @@ class ThirdViewController: UITableViewController, UISearchBarDelegate {
                 }
             }
         }
-    }
-}
-
-extension String {
-    /// Returns a date from a string in MMMM dd, yyyy. Will return today's date if input is invalid.
-    var asDate: Date {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "E, MMM d yyyy h:mm a"
-        return formatter.date(from: self) ?? Date()
     }
 }
